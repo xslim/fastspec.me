@@ -6,3 +6,6 @@
 
   .form-actions
     = f.button :submit
+    - if @project.persisted?
+      = link_to 'Destroy', @project, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
+    
