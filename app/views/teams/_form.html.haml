@@ -1,0 +1,10 @@
+= simple_form_for @team , html: { class: 'form-horizontal' }  do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    
+  .form-actions
+    = f.button :submit
+    - if @team.persisted?
+      = link_to 'Destroy', @team, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'

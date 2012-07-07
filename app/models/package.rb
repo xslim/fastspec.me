@@ -5,5 +5,6 @@ class Package
   field :name, :type => String
 
   has_and_belongs_to_many :features
+  belongs_to :team
 
 end

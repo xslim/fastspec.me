@@ -11,6 +11,7 @@ class User
   ## Database authenticatable
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
+  
 
   validates_presence_of :email
   validates_presence_of :encrypted_password
@@ -44,7 +45,10 @@ class User
   # field :authentication_token, :type => String
   # run 'rake db:mongoid:create_indexes' to create indexes
   index :email, :unique => true
-  field :name
+  
   validates_presence_of :name
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  #attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+
+  has_and_belongs_to_many :teams
+
 end

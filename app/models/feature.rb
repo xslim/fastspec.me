@@ -8,6 +8,7 @@ class Feature
   field :image, :type => String
 
   has_and_belongs_to_many :packages
+  belongs_to :team
 
   mount_uploader :image, ImageUploader
 
