@@ -16,6 +16,7 @@ class ProjectManager
   start: ->
     console.log "Start ProjectManager"
     $(".collapse").collapse()
+    
       
   
   onAddProject: (e) =>
@@ -24,7 +25,8 @@ class ProjectManager
   onAddFeature: (e) =>
     console.log "On Add Feature"
     
-    @addFeaturePopup.toggleClass('hide')
+    @addFeaturePopup.modal({})
+    
       
     
     

@@ -206,6 +206,9 @@ GEM
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
+    rabl (0.6.13)
+      activesupport (>= 2.3.14)
+      multi_json (~> 1.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -323,6 +326,7 @@ DEPENDENCIES
   mongoid (>= 2.4.11)
   mongoid-rspec (>= 1.4.4)
   omniauth-facebook
+  rabl
   rails (= 3.2.6)
   rfc-822
   rmagick
