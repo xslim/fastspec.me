@@ -1,3 +1,7 @@
 collection @features
 
-attributes :id, :name, :description
+attributes :id, :name, :description, :estimate
+
+child :team => :team do
+  attributes :id, :name
+end
