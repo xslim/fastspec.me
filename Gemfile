@@ -28,6 +28,7 @@ gem 'rfc-822' # Email validation regexps
 
 gem 'activeadmin-mongoid'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'rmagick'
 
 gem "bootstrap-sass", ">= 2.0.3"
 gem "simple_form"
