@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
+  respond_to :html, :json
   
   # GET /projects
   # GET /projects.json
@@ -63,7 +64,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update_attributes(params[:project])
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { head :no_content }
+        format.json { respond_with_bip @project }
       else
         format.html { render action: "edit" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -126,6 +127,16 @@ class ProjectsController < ApplicationController
       redirect_to @project, alert: 'Problem removing Feature.'
     end
     
+  end
+
+  def update_feature
+    @project = Project.find(params[:id])
+    feature = (@project.project_features.find(params[:feature_id]) rescue nil)
+
+    if feature
+      feature.update_attributes(params[:project_feature])
+      respond_with_bip feature
+    end
   end
 
 end

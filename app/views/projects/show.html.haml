@@ -1,4 +1,4 @@
-%h2= @project.name
+%h2= best_in_place @project, :name
 
 %table.table.table-striped
   %tr
@@ -10,8 +10,8 @@
     %tr
       %td
         = image_tag(f.image.small_thumb) if f.image?
-        = f.name
-      %td= f.estimate
+        = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
+      %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
       %td
         = link_to 'Delete', project_delete_feature_path(@project, f)
 

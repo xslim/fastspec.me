@@ -4,6 +4,6 @@ class Project
 
   field :name, :type => String
 
-  embeds_many :project_features, cascade_callbacks: true
+  embeds_many :project_features#, cascade_callbacks: true
 
 end
