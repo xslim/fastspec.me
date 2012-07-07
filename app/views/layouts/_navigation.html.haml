@@ -1,16 +1,23 @@
 = link_to "Fastspec", root_path, :class => 'brand'
-%ul.nav
 
-/
+- if user_signed_in?
+  %ul.nav
+    %li.dropdown
+      %a.dropdown-toggle{ 'href'=> '#', 'data-toggle' => 'dropdown' }
+        = current_team.name
+        %b.caret
+      %ul.dropdown-menu
+        - current_user.teams.each do |team|
+          %li= link_to team.name, team
+        %li.divider
+        %li= link_to 'Create new team', new_team_path
+
+%ul.nav.pull-right
   - if user_signed_in?
-    %li
-      = link_to('Logout', destroy_user_session_path, :method=>'delete')
+    %li= link_to(current_user.name, edit_user_registration_path)
+    %li.divider-vertical
+    %li= link_to('Logout', destroy_user_session_path, :method=>'delete')
   - else
-    %li
-      = link_to('Login', new_user_session_path)
-  - if user_signed_in?
-    %li
-      = link_to('Edit account', edit_user_registration_path)
-  - else
-    %li
-      = link_to('Sign up', new_user_registration_path)
+    %li= link_to('Login', new_user_session_path)
+    %li.divider-vertical
+    %li= link_to('Sign up', new_user_registration_path)
