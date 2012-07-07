@@ -1,6 +1,10 @@
 %h1.page-header 
   = best_in_place @project, :name
 
+.btn-toolbar
+  %button.btn.btn-primary#add_feature_btn{:"data-toggle" => "modal"}
+    Add feature
+
 %table.table.table-striped.table-condensed
   %tr
     %th Feature
@@ -15,7 +19,22 @@
       %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
       %td
         = link_to 'Delete', project_delete_feature_path(@project, f)
+    %tr.collapse
+      %td{:colspan => 3}
+        Test stuff
 
 = link_to 'Edit', edit_project_path(@project)
 \|
 = link_to 'Back', projects_path
+
+
+#add_feature_popup.modal.hide.fade
+  .modal-header
+    %button.close{:"data-dismiss" =>"modal"}
+      x
+    %h3 Add a Feature
+  .modal-body  
+    List of features
+  .modal-footer
+    %button.btn
+      Close
