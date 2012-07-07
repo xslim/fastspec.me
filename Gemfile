@@ -43,3 +43,5 @@ gem 'capistrano-ext'
 gem 'capistrano_colors'
 gem 'rvm-capistrano'
 gem 'thin'
+
+gem 'rabl'

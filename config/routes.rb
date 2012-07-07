@@ -24,4 +24,11 @@ Fastspec::Application.routes.draw do
   match 'projects/:id/delete/feature/:feature_id' => 'projects#delete_feature', as: 'project_delete_feature'
   match 'projects/:id/update/feature/:feature_id' => 'projects#update_feature', as: 'project_update_feature'
 
+  namespace "api" do
+    namespace "v1" do
+      get "features" => "features#get"
+    end
+    
+  end
+
 end
