@@ -19,6 +19,7 @@ set :application, "fastspec.me"
 set :repository,  "git@github.com:xslim/fastspec.me.git"
 
 set :scm, :git
+set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 
 role :web, "#{application}"                          # Your HTTP server, Apache/etc
