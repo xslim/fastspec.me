@@ -1,9 +1,10 @@
-%h2= best_in_place @project, :name
+%h1.page-header 
+  = best_in_place @project, :name
 
-%table.table.table-striped
+%table.table.table-striped.table-condensed
   %tr
-    %th Name
-    %th Estimation
+    %th Feature
+    %th Estimate, hours
     %th Actions
 
   - @project.project_features.each do |f|

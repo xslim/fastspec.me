@@ -1,17 +1,21 @@
-%h1 Listing projects
+%h1.page-header My Projects
 
+.btn-toolbar
+  %button.btn.btn-primary#add_project_btn
+    Add project
+    
+      
 %table.table.table-striped
   %tr
-    %th
-    %th
-
+  
   - @projects.each do |project|
     %tr
-      %td= link_to project.name, project
       %td
-        = link_to 'Edit', edit_project_path(project)
-        \|
-        = link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+        = link_to project.name, project
+      %td
+        .btn-group
+          = link_to 'Edit', edit_project_path(project), {:class => 'btn btn-primary btn-mini'}
+          = link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
 
 %br
 
