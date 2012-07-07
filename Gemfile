@@ -32,3 +32,10 @@ gem 'rmagick'
 
 gem "bootstrap-sass", ">= 2.0.3"
 gem "simple_form"
+
+# Deploy with Capistrano
+gem 'capistrano'
+gem 'capistrano-ext'
+gem 'capistrano_colors'
+gem 'rvm-capistrano'
+gem 'thin'
