@@ -10,6 +10,21 @@ ActiveAdmin.register Package do
     end  
     
     f.buttons
-  end 
+  end
+
+  show :title => proc{ package.name } do
+    attributes_table do
+      row :name
+    end
+    
+    panel "Features" do
+      table_for(package.features) do |t|
+        t.column("Image") {|o| image_tag(o.image.small_thumb) if o.image? }
+        t.column("Feature") {|o| auto_link o }
+        t.column("Estimate") {|o| o.estimate }
+      end
+    end
+        
+  end
 
 end
