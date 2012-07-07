@@ -1,6 +1,103 @@
 // Set the correct sprite paths
+
 $iconSpritePath: asset-url('glyphicons-halflings.png', image);
 $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
+$iconBgPath: asset-url('grid-18px-masked.png', image);
+
 @import "bootstrap";
-body { padding-top: 60px; }
+
+body { 
+  padding-top: 60px;
+  background-image: $iconBgPath;
+  background-repeat: repeat-x;
+  background-position-y: 40px;
+}
+
+.footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid 
+  #E5E5E5;
+}
+
+.footer p {
+  margin-bottom: 0;
+  color: #555;
+}
+
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lobster'), url(https://themes.googleusercontent.com/static/fonts/lobster/v5/NIaFDq6p6eLpSvtV2DTNDQLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+}
+
+.navbar .brand, legend {
+  font-family: 'Lobster',cursive;
+}
+
+.masthead {
+  padding-top: 36px;
+  margin-bottom: 72px;
+}
+
+.masthead p {
+margin-left: 5%;
+margin-right: 5%;
+font-size: 30px;
+line-height: 36px;
+}
+
+.jumbotron {
+  position: relative;
+}
+
+.masthead h1 {
+  margin-bottom: 18px;
+}
+
+.masthead h1, .masthead p {
+  text-align: center;
+}
+
+.jumbotron h1 {
+  margin-bottom: 9px;
+  font-size: 81px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  font-family: 'Lobster',cursive;
+}
+
+.jumbotron p {
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+
+.marketing h1 {
+  margin: 36px 0 27px;
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.marketing p {
+  margin-right: 10px;
+}
+
+.marketing-byline {
+  margin: -18px 0 27px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #999;
+  text-align: center;
+}
+
+.marketing .bs-icon {
+  float: left;
+  margin: 7px 10px 0 0;
+  opacity: .8;
+}
+
 @import "bootstrap-responsive";

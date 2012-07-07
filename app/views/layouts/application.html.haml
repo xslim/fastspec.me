@@ -18,9 +18,13 @@
           = render 'layouts/navigation'
     #main{:role => "main"}
       .container
-        .content
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
-          %footer
+        = render 'layouts/messages'
+        = yield
+        /
+          .content
+            .row
+              .span12
+        %footer.footer
+          %p 
+            Build with love by 
+            %a{href: 'http://appfellas.co', target: '_blank'} AppFellas

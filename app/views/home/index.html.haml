@@ -1,3 +1,20 @@
-%h3 Home
-- @users.each do |user|
-  %p User: #{link_to user.name, user}
+%header.jumbotron.masthead
+  .inner
+    %h1 FastSpec
+    %p Fast and simple quote & specification creation tool
+
+%hr.soften
+
+.marketing
+  %h1 Made for everyone
+  %p.marketing-byline Need some reasons?
+  .row
+    .span4
+      = image_tag 'glyphicons/glyphicons_043_group.png', class: 'bs-icon'
+      %h2 Built for all by nerds
+    .span4
+      = image_tag 'glyphicons/glyphicons_289_podium.png', class: 'bs-icon'
+      %h2 For all skill levels
+    .span4
+      = image_tag 'glyphicons/glyphicons_009_magic.png', class: 'bs-icon'
+      %h2 Simple wizard
