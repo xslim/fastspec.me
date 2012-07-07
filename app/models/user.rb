@@ -44,6 +44,9 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   # run 'rake db:mongoid:create_indexes' to create indexes
+
+  field :name, :type => String
+
   index :email, :unique => true
   
   validates_presence_of :name
