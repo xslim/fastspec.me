@@ -12,3 +12,4 @@ class Feature
   mount_uploader :image, ImageUploader
 
 end
+

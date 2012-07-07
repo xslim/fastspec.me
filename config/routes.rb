@@ -6,7 +6,14 @@ Fastspec::Application.routes.draw do
   authenticated :user do
     root :to => 'home#index'
   end
+
   root :to => "home#index"
+  
   devise_for :users
   resources :users, :only => [:show, :index]
+  
+  resources :projects
+  match 'projects/:id/add/feature/:feature_id' => 'projects#add_feature', as: 'project_add_feature'
+  match 'projects/:id/delete/feature/:feature_id' => 'projects#delete_feature', as: 'project_delete_feature'
+
 end

@@ -1,0 +1,20 @@
+%h2= @project.name
+
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Estimation
+    %th Actions
+
+  - @project.project_features.each do |f|
+    %tr
+      %td
+        = image_tag(f.image.small_thumb) if f.image?
+        = f.name
+      %td= f.estimate
+      %td
+        = link_to 'Delete', project_delete_feature_path(@project, f)
+
+= link_to 'Edit', edit_project_path(@project)
+\|
+= link_to 'Back', projects_path
