@@ -1,19 +1,25 @@
 = image_tag 'glyphicons/glyphicons_043_group.png', class: 'bs-icon'
 %h1 
   Team
-  = @team.name
+  %em= @team.name
 
 .row
   .span6
     %h2 Projects
+    %p= link_to 'New Project', new_project_path
 
     %table.table.table-striped
       - @team.projects.each do |project|
         %tr
           %td= link_to project.name, project
 
-    = link_to 'New Project', new_project_path
-    
   .span6
     %h2 Latest Features
+    %p= link_to 'New Feature', new_feature_path
+
+    %table.table.table-striped
+      - @team.features.limit(20).each do |feature|
+        %tr
+          %td= link_to feature.name, feature
+
   
