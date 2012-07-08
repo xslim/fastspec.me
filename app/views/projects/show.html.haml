@@ -12,13 +12,24 @@
     %th Actions
 
   - @project.project_features.each do |f|
-    %tr
+    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}"}
       %td
         = image_tag(f.image.small_thumb) if f.image?
         = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
       %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
       %td
         = link_to 'Delete', project_delete_feature_path(@project, f)
+        
+    %tr
+      %td{:colspan => 3, :style => 'height: 0px;'}
+        %div.collapse{:id => "details_#{f.id}"}   
+          .alert.alert-info
+            = best_in_place f, :description, path: project_update_feature_path(@project, f), nil: "Enter Description of this Task"
+          %br
+          .btn-group
+            %button.btn.btn-success.btn-mini
+              Add comment
+          
 
 = link_to 'Edit', edit_project_path(@project)
 \|

@@ -23,5 +23,11 @@ class ApplicationController < ActionController::Base
   def set_current_team(team)
     session[:team_id] = team.id.to_s
   end
+  
+  def after_sign_out_path_for(resource_or_scope)
+    #reset_session
+    session[:team_id] = nil
+    root_path
+  end
 
 end

@@ -2,14 +2,11 @@ class Api::V1::FeaturesController < ::Api::ApiController
   
   def get
     
-    
     @features = current_team.features
-    
+      
   end
   
   def add
-    
-    
     
   end
   

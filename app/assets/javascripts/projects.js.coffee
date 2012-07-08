@@ -4,7 +4,7 @@ class ProjectManager
   # 
   #
   constructor: (@params) ->
-    @baseUrl = "http://0.0.0.0:3000/api/v1"
+    @baseUrl = "http://#{location.host}/api/v1"
     
     @getFeaturesUrl = "#{@baseUrl}/features"
     @addFeatureToProjectUri = "#{@baseUrl}/project/feature.json"
