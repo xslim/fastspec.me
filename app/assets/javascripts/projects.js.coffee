@@ -142,12 +142,11 @@ class ProjectManager
   addFeatureRow: (feature) =>
     feature.project_id = @projectId
     $.template "featureRow",  "<tr><td>" +
-      '<span class="best_in_place" id="best_in_place_feature_${id}_name" data-url="/projects/${project_id}/update/feature/${id}" data-object="feature" data-attribute="name" data-nil="Something" data-type="input">${name}</span>' +
+      '<span class="best_in_place" id="best_in_place_feature_${_id}_name" data-url="/projects/${project_id}/update/feature/${_id}" data-object="feature" data-attribute="name" data-nil="Something" data-type="input">${name}</span>' +
       '</td>' +
-      '<td><span class="best_in_place" id="best_in_place_feature_${id}_estimate" data-url="/projects/${project_id}/update/feature/${id}" data-object="feature" data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
-      '<td><a href="/projects/${project_id}/delete/feature/${id}" data-method="delete" rel="nofollow">Delete</a></td></tr>'
+      '<td><span class="best_in_place" id="best_in_place_feature_${_id}_estimate" data-url="/projects/${project_id}/update/feature/${_id}" data-object="feature" data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
+      '<td><a href="/projects/${project_id}/delete/feature/${_id}" data-method="delete" rel="nofollow">Delete</a></td></tr>'
 
-    
     renderedFeature = $.tmpl('featureRow', feature)
     
     $('#featureListTable tr:last').after(renderedFeature)
