@@ -1,0 +1,14 @@
+%h1
+  Feature
+  %em= @feature.name
+.row
+  .span6
+    = image_tag @feature.image
+  .span6
+    %p= @feature.description
+
+
+
+
+= link_to 'Edit', edit_feature_path(@feature)
+

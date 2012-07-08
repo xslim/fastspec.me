@@ -19,6 +19,7 @@ Fastspec::Application.routes.draw do
   
   resources :projects
   resources :teams
+  resources :features
 
   match 'projects/:id/add/feature/:feature_id' => 'projects#add_feature', as: 'project_add_feature'
   match 'projects/:id/delete/feature/:feature_id' => 'projects#delete_feature', as: 'project_delete_feature'
