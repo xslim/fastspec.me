@@ -56,12 +56,17 @@ namespace :deploy do
   end
 end
 
-#before 'deploy:update', 'local:sshadd'
+before 'local:sshadd', 'local:copy_config'
 
 namespace :local do
   desc "Localy run ssh-add"
   task :sshadd, :roles => :app do
     system "ssh-add"
+  end
+  desc "Copy local secret config to remote"
+  task :copy_config, :hosts => "#{application}" do
+    filename = "config.yml"
+    upload "#{Rails.root}/config/#{filename}", "#{current_release}/config/#{filename}"
   end
 end
 
