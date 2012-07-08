@@ -4,7 +4,7 @@
   %ul.nav
     %li.dropdown
       %a.dropdown-toggle{ 'href'=> '#', 'data-toggle' => 'dropdown' }
-        = current_team.name
+        = (current_team) ? current_team.name : ''
         %b.caret
       %ul.dropdown-menu
         - current_user.teams.each do |team|
