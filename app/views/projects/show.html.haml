@@ -5,7 +5,7 @@
   %button.btn.btn-primary#add_feature_btn{:"data-toggle" => "modal"}
     Add feature
 
-%table.table.table-striped.table-condensed
+%table.table.table-striped.table-condensed{:id => 'featureListTable'}
   %tr
     %th Feature
     %th Estimate, hours
@@ -18,23 +18,19 @@
         = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
       %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
       %td
-        = link_to 'Delete', project_delete_feature_path(@project, f)
-    %tr.collapse
-      %td{:colspan => 3}
-        Test stuff
+        = link_to 'Delete', project_delete_feature_path(@project, f), :method => :delete
 
 = link_to 'Edit', edit_project_path(@project)
 \|
 = link_to 'Back', projects_path
 
 
-#add_feature_popup.modal.hide.fade
+#add_feature_popup.modal.hide.fade{:'data-project-id' => @project.id}
   .modal-header
     %button.close{:"data-dismiss" =>"modal"}
       x
     %h3 Add a Feature
-  .modal-body#features_list  
-    List of features
+  .modal-body#features_list
   .modal-footer
     %button.btn{:"data-dismiss" =>"modal"}
       Close

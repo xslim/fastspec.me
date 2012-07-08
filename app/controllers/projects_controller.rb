@@ -121,8 +121,12 @@ class ProjectsController < ApplicationController
     if feature.nil?
       redirect_to @project, alert: 'Feature was not found.' and return
     end
-
-    if @project.project_features.delete(feature)
+    
+    puts feature.inspect
+    puts @project.project_features.inspect
+    
+    if @project.project_features.where(:_id => feature.id.to_s).delete_all
+      #@project.reload
       redirect_to @project, notice: 'Feature was deleted.'
     else
       redirect_to @project, alert: 'Problem removing Feature.'
