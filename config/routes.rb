@@ -27,6 +27,7 @@ Fastspec::Application.routes.draw do
   namespace "api" do
     namespace "v1" do
       get "features" => "features#get"
+      post 'project/feature' => 'features#add_feature_to_project'
     end
     
   end
