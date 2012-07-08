@@ -1,8 +1,25 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :preset_current_team
+
+  include TeamHelper
+
+  #def current_team
+  #  TeamHelper.current_team
+  #end
+
+  def set_current_team(team)
+    session[:team_id] = team.id.to_s
+  end
+  
+  def after_sign_out_path_for(resource_or_scope)
+    #reset_session
+    session[:team_id] = nil
+    root_path
+  end
 
 
-  def current_team
+  def preset_current_team
     return nil if !current_user
 
     team = nil
@@ -17,17 +34,7 @@ class ApplicationController < ActionController::Base
       session[:team_id] = team.id.to_s if team
     end
     
-    return team
-  end
-
-  def set_current_team(team)
-    session[:team_id] = team.id.to_s
-  end
-  
-  def after_sign_out_path_for(resource_or_scope)
-    #reset_session
-    session[:team_id] = nil
-    root_path
+    TeamHelper.current_team = team
   end
 
 end

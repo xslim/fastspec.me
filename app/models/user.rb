@@ -59,4 +59,8 @@ class User
 
   has_and_belongs_to_many :teams
 
+  include TeamHelper
+  scope :in_team, where(:team_ids.in => [TeamHelper.current_team.id])
+  #default_scope where(:team_ids.in => [TeamHelper.current_team.id])
+
 end

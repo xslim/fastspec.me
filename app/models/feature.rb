@@ -12,5 +12,9 @@ class Feature
 
   mount_uploader :image, ImageUploader
 
+  include TeamHelper
+  scope :in_team, where(team_id: TeamHelper.current_team.id)
+  default_scope where(team_id: TeamHelper.current_team.id)
+
 end
 
