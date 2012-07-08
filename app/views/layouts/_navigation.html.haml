@@ -13,6 +13,7 @@
           %li.divider
           %li= link_to 'Edit current team', edit_team_path(current_team)
           %li= link_to 'Create new team', new_team_path
+      %li= link_to 'Invite friends', new_invite_path
 
 %ul.nav.pull-right
   - if user_signed_in?
