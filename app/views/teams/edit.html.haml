@@ -2,3 +2,18 @@
 
 = render 'form'
 
+.row
+  .span6
+    %h2 Collaborators
+
+    %table.table.table-striped
+      %tr
+        %th Name
+        %th Email
+      - @team.users.each do |user|
+        %tr
+          %td= user.name
+          %td= user.email
+
+  .span6
+
