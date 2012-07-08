@@ -16,9 +16,10 @@ class TeamsController < ApplicationController
   # GET /teams/1.json
   def show
     @team = Team.find(params[:id])
+    set_current_team @team
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to dashboard_path, notice: 'Team changed.' }
       format.json { render json: @team }
     end
   end
@@ -48,6 +49,9 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team.save
+
+        set_current_team @team
+
         format.html { redirect_to dashboard_path, notice: 'Team was successfully created.' }
         format.json { render json: @team, status: :created, location: @team }
       else

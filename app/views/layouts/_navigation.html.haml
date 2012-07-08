@@ -11,6 +11,7 @@
           - current_user.teams.each do |team|
             %li= link_to team.name, team
           %li.divider
+          %li= link_to 'Edit current team', edit_team_path(current_team)
           %li= link_to 'Create new team', new_team_path
 
 %ul.nav.pull-right
