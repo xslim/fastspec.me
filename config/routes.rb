@@ -3,10 +3,10 @@ require File.expand_path("../../lib/logged_in_constraint", __FILE__)
 Fastspec::Application.routes.draw do
   ActiveAdmin.routes(self)
 
-  devise_for :users, ActiveAdmin::Devise.config
+  #devise_for :users, ActiveAdmin::Devise.config
 
   authenticated :user do
-    root :to => 'home#index'
+    root :to => 'dashboard#index'
   end
 
   #root :to => "home#index"
