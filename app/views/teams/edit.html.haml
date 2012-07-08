@@ -13,7 +13,7 @@
       - @team.users.each do |user|
         %tr
           %td
-            = gravatar_image_tag(current_user.email, gravatar: {size: 20})
+            = gravatar_image_tag(user.email, gravatar: {size: 20})
             = user.name
           %td= user.email
 
