@@ -3,10 +3,11 @@ class ApplicationController < ActionController::Base
   before_filter :preset_current_team
 
   include TeamHelper
+  helper_method :current_team
 
-  #def current_team
-  #  TeamHelper.current_team
-  #end
+  def current_team
+    TeamHelper.current_team
+  end
 
   def set_current_team(team)
     session[:team_id] = team.id.to_s

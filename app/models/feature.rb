@@ -15,8 +15,8 @@ class Feature
   embeds_many :comments
 
   include TeamHelper
-  scope :in_team, where(team_id: TeamHelper.current_team.id)
-  default_scope where(team_id: TeamHelper.current_team.id)
+  scope :in_team, where(team_id: TeamHelper.current_team_id)
+  default_scope where(team_id: TeamHelper.current_team_id)
 
 end
 
