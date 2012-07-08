@@ -46,6 +46,7 @@ gem 'rmagick'
 gem "bootstrap-sass", ">= 2.0.3"
 gem "simple_form"
 gem 'best_in_place'
+gem 'gravatar_image_tag'
 
 # Deploy with Capistrano
 gem 'capistrano'
