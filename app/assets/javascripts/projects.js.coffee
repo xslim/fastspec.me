@@ -8,13 +8,19 @@ class ProjectManager
     
     @getFeaturesUrl = "#{@baseUrl}/features"
     @addFeatureToProjectUri = "#{@baseUrl}/project/feature.json"
+    @addCommentToFeatureInProjectUrl = "#{@baseUrl}/project/feature/comment.json"
     
     @addProjectBtn = $('#add_project_btn')
     @addFeatureBtn = $('#add_feature_btn')
     @addFeaturePopup = $('#add_feature_popup')
+    @addCommentBtn = $('.add_comment_btn')
+    @saveCommentBtn = $('#save_comment_btn')
+    @addCommentForm = $('#add_comment_form')
     
     @addProjectBtn.on "click", @onAddProject
     @addFeatureBtn.on "click", @onAddFeature
+    @addCommentBtn.on "click", @onAddComment
+    @saveCommentBtn.on "click", @onCommentSave
     
     $(document.body).on 'FS::AddFeatureToProject', @onAddFeatureToProject
   #
@@ -151,6 +157,46 @@ class ProjectManager
     
     $('#featureListTable tr:last').after(renderedFeature)
     
+  onAddComment: (e) =>
+    btn = $(e.currentTarget)
+    fid = btn.attr 'data-feature-id'
+    console.log "Add a comment to feature #{fid}"
+    cWrapper = $("#comments_#{fid}")
+
+    form = $('#add_comment_form')
+    form.modal({})
+    field = $('#comment_fld')
+    field.attr 'data-feature-id', fid
+    field.val('')
+    field.focus()
+    
+    console.log field
+  
+  onCommentSave: (e) =>
+    form = $('#add_comment_form')
+    form.modal('hide')      
+    
+    pid = form.attr "data-project-id"
+          
+    field = $('#comment_fld')  
+    fid = field.attr 'data-feature-id'  
+    console.log "Comment #{field.val()}"
+    console.log "Fid: #{fid}"
+    console.log "ProjectId: #{pid}"
+    
+    $.ajax
+      url: @addCommentToFeatureInProjectUrl
+      type: 'post'
+      dataType: 'json'
+      data:
+        pid: pid
+        fid: fid
+        comment: field.val()
+      success: (data) =>
+        console.log data
+      error: (error) =>
+        console.log error  
+      
 jQuery ->
   $('.best_in_place').best_in_place()
   pm = new ProjectManager

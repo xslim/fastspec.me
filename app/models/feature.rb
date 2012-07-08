@@ -11,6 +11,8 @@ class Feature
   belongs_to :team
 
   mount_uploader :image, ImageUploader
+  
+  embeds_many :comments
 
 end
 

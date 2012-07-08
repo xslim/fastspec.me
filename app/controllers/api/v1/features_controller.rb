@@ -37,6 +37,29 @@ class Api::V1::FeaturesController < ::Api::ApiController
     end  
     
     
-  end  
+  end 
+  
+  def add_comment_to_feature
+    pid = params[:pid]
+    fid = params[:fid]
+    comment = params[:comment]
+    
+    @project = Project.find(pid)
+    @feature = @project.project_features.find(fid)
+    
+    puts @feature.inspect
+    
+    com = Comment.new
+    com.comment = comment
+    com.user_name = current_user.name
+    com.user_email = current_user.email
+    com.user_id = current_user.id
+    
+    @feature.comments << com
+    @feature.save
+    
+    @comment = com
+    
+  end 
   
 end  

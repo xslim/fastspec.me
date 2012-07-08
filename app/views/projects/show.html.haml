@@ -19,6 +19,8 @@
       %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
       %td
         = link_to 'Delete', project_delete_feature_path(@project, f)
+    
+        
         
     %tr
       %td{:colspan => 3, :style => 'height: 0px;'}
@@ -26,8 +28,18 @@
           .alert.alert-info
             = best_in_place f, :description, path: project_update_feature_path(@project, f), nil: "Enter Description of this Task"
           %br
+          .comments{:id => "comments_#{f.id}"}
+            - f.comments.each do |com|
+              .alert.alert-info
+                = com.comment
+                %br
+                by
+                = com.user_name
+                at 
+                = com.created_at
+            
           .btn-group
-            %button.btn.btn-success.btn-mini
+            %button.add_comment_btn.btn.btn-success.btn-mini{:'data-feature-id' => f.id}
               Add comment
           
 
@@ -35,6 +47,23 @@
 \|
 = link_to 'Back', projects_path
 
+#add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
+  .modal-header
+    %button.close{:"data-dismiss" =>"modal"}
+      x
+    %h3 Comment
+  .modal-body#comment_form.form-horizontal
+    .control-group
+      %label.control-label{:for => 'comment_fld'}
+        Enter your comment
+      .controls
+        %input.input-xlarge#comment_fld{:type => 'text'}
+    
+  .modal-footer
+    %button.btn{:"data-dismiss" =>"modal"}
+      Close
+    %button.btn.btn-success#save_comment_btn{:'data-project-id' => @project.id}
+      Save  
 
 #add_feature_popup.modal.hide.fade{:'data-project-id' => @project.id}
   .modal-header
