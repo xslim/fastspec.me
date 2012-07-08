@@ -1,16 +1,17 @@
 = link_to "Fastspec", root_path, :class => 'brand'
 
 - if user_signed_in?
-  %ul.nav
-    %li.dropdown
-      %a.dropdown-toggle{ 'href'=> '#', 'data-toggle' => 'dropdown' }
-        = (current_team) ? current_team.name : ''
-        %b.caret
-      %ul.dropdown-menu
-        - current_user.teams.each do |team|
-          %li= link_to team.name, team
-        %li.divider
-        %li= link_to 'Create new team', new_team_path
+  - if current_team
+    %ul.nav
+      %li.dropdown
+        %a.dropdown-toggle{ 'href'=> '#', 'data-toggle' => 'dropdown' }
+          = current_team.name
+          %b.caret
+        %ul.dropdown-menu
+          - current_user.teams.each do |team|
+            %li= link_to team.name, team
+          %li.divider
+          %li= link_to 'Create new team', new_team_path
 
 %ul.nav.pull-right
   - if user_signed_in?
