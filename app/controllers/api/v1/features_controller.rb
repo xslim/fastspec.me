@@ -1,15 +1,12 @@
 class Api::V1::FeaturesController < ::Api::ApiController
   
   def get
-    
-    puts "--> current_team: #{current_team.inspect}\n #{current_user.inspect}"
+
     @features = current_team.features
-    
+      
   end
   
   def add
-    
-    
     
   end
   

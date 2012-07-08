@@ -16,7 +16,10 @@
         .btn-group
           = link_to 'Edit', edit_project_path(project), {:class => 'btn btn-primary btn-mini'}
           = link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger btn-mini'
-
+          -#%button{:"data-toggle"=> "collapse", :"data-target"=>"details_#{project.id}", :class => 'btn btn-primary btn-mini'}
+    -#%tr
+    -#  %div.collapse{:id => "details_#{project.id}"}    
+    -#    Test ingo
 %br
 
 = link_to 'New Project', new_project_path
