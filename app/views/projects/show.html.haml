@@ -46,12 +46,10 @@
   = link_to 'Edit', edit_project_path(@project)
   \|
   = link_to 'Back', projects_path
-/
-  = link_to @project, class: 'btn js-btn' do
-    %i.icon-print
-    Print PDF »
 
-= link_to_function('Export to PDF »', "javascript:print()", class: 'btn js-btn')
+= link_to @project, format: 'pdf', class: 'btn js-btn' do
+  %i.icon-print
+  Print PDF »
 
 
 #add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
