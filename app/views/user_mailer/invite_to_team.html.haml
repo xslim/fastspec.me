@@ -1,0 +1,19 @@
+%p Hi man!
+
+%p 
+  You've been invited to join 
+  %strong
+    %em= @team_name
+  team!
+
+%p 
+  Click on a link to join now:
+  %br
+  = join_invite_url(@invite_token)
+
+%p
+  --
+  %br
+  FastSpec
+  %br
+  #{root_url}

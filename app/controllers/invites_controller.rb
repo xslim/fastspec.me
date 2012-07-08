@@ -7,7 +7,7 @@ class InvitesController < ApplicationController
       redirect_to root_path, alert: 'Please select team!' and return
     end
 
-    puts ""
+    puts "#{APP_CONFIG.inspect}"
 
     @invite = Invite.new
 
@@ -32,13 +32,15 @@ class InvitesController < ApplicationController
     @invite.invited_for = invited_for
     @invite.invited_by_type = current_user.class.to_s
     @invite.invited_by = current_user.id.to_s
+    @invite.active = true
 
     if @invite.save
 
       # Make bool
+      #emailed = UserMailer.invite_to_team(email, current_team, @invite).deliver
       emailed = (UserMailer.invite_to_team(email, current_team, @invite).deliver rescue false)
       if emailed
-        @invite.emailed = emailed
+        @invite.mailed = emailed
         @invite.save
       end
 
@@ -47,8 +49,41 @@ class InvitesController < ApplicationController
     redirect_to new_invite_path
   end
 
-  def join_team
-    #stub
+  def resend_invites
+    # invites = Invite.not_mailed
+    # invites.each |e| do
+    #   team = 
+    #   emailed = (UserMailer.invite_to_team(email, current_team, e).deliver rescue false)
+    #   if emailed
+    #     e.emailed = emailed
+    #     e.save
+    #   end
+    # end
+
+  end
+
+  def join
+
+    invite = Invite.find_by_token(params[:token])
+
+    if !invite
+      redirect_to root_path, alert: 'Non existing invite!' and return
+    elsif !invite.active
+      redirect_to root_path, alert: 'Invite expired!' and return
+    end
+
+    invited_for = (Kernel.const_get(invite.invited_for_type).find(invite.invited_for) rescue nil)
+    if !invited_for
+      redirect_to root_path, alert: 'Invite problem!' and return
+    end
+
+    # not generic now
+    invited_for.users << current_user
+    invited_for.save
+
+    set_current_team invited_for
+
+    invite.update_attributes(active: false)
     redirect_to root_path, notice: 'Successfully joined new team!' and return
   end
 

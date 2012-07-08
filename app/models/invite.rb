@@ -12,10 +12,15 @@ class Invite
   field :invited_for_type, :type => String
 
   field :mailed, :type => Boolean
-  field :accepted, :type => Boolean
+  field :active, :type => Boolean
+  #field :accepted, :type => Boolean
 
   def self.find_by_email(email)
     self.first(conditions: { email: email} )
+  end
+
+  def self.find_by_token(token)
+    self.first(conditions: { token: token} )
   end
 
   def self.exists_for(for_id, for_type, email)
