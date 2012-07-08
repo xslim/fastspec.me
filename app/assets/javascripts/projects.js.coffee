@@ -184,6 +184,8 @@ class ProjectManager
     console.log "Fid: #{fid}"
     console.log "ProjectId: #{pid}"
     
+    cWrapper = $("#comments_#{fid}")
+    
     $.ajax
       url: @addCommentToFeatureInProjectUrl
       type: 'post'
@@ -194,6 +196,10 @@ class ProjectManager
         comment: field.val()
       success: (data) =>
         console.log data
+        $.template "commentRow", '<div class="alert alert-info">${comment}<br>by ${user_name} at ${created_at}</div>'
+        
+        $.tmpl('commentRow', data).appendTo(cWrapper)
+        
       error: (error) =>
         console.log error  
       
