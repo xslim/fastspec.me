@@ -36,7 +36,7 @@ set :use_sudo, false
 set :deploy_to, "/home/deployer/#{application}/dev"
 set :runner, user
 
-set :rails_env, "development"
+set :rails_env, "production"
 
 #set :gem_home, "/Users/slim/.rvm/gems/ruby-1.9.3-p194"
 
@@ -56,7 +56,8 @@ namespace :deploy do
   end
 end
 
-before 'local:sshadd', 'local:copy_config'
+before 'deploy:update', 'local:sshadd'
+before 'deploy:finalize_update', 'local:copy_config'
 
 namespace :local do
   desc "Localy run ssh-add"
@@ -66,7 +67,7 @@ namespace :local do
   desc "Copy local secret config to remote"
   task :copy_config, :hosts => "#{application}" do
     filename = "config.yml"
-    upload "#{Rails.root}/config/#{filename}", "#{current_release}/config/#{filename}"
+    upload "config/#{filename}", "#{current_release}/config/#{filename}"
   end
 end
 
