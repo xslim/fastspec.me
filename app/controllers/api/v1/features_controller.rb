@@ -2,8 +2,9 @@ class Api::V1::FeaturesController < ::Api::ApiController
   
   def get
     
-    @features = Feature.all()
-    puts @features
+    
+    @features = current_team.features
+    
   end
   
   def add

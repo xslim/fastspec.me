@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
     if !team
       team = current_user.teams.first
-      session[:team_id] = team.id.to_s
+      session[:team_id] = team.id.to_s if team
     end
     
     return team
