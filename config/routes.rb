@@ -33,6 +33,7 @@ Fastspec::Application.routes.draw do
     namespace "v1" do
       get "features" => "features#get"
       post 'project/feature' => 'features#add_feature_to_project'
+      post 'project/feature/comment' => 'features#add_comment_to_feature'
     end
     
   end

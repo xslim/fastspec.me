@@ -11,6 +11,8 @@ class Feature
   belongs_to :team
 
   mount_uploader :image, ImageUploader
+  
+  embeds_many :comments
 
   include TeamHelper
   scope :in_team, where(team_id: TeamHelper.current_team.id)

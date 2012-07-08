@@ -3,5 +3,6 @@ collection @features
 attributes :id, :name, :description, :estimate
 
 child :team => :team do
-  attributes :id, :name
+  attributes :id, :name, :comments
 end
+
