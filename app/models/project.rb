@@ -10,6 +10,6 @@ class Project
 
   include TeamHelper
   scope :in_team, where(team_id: TeamHelper.current_team_id)
-  default_scope where(team_id: TeamHelper.current_team_id)
+  #default_scope where(team_id: TeamHelper.current_team_id)
 
 end
