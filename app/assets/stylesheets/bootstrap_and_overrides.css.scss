@@ -100,4 +100,21 @@ line-height: 36px;
   opacity: .8;
 }
 
+#add_feature_popup {
+  
+  .modal-body {
+    max-height: 400px;
+    min-height: 400px;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  
+  .accordion {
+    height: 100%
+  }
+    
+}
+
+
+
 @import "bootstrap-responsive";

@@ -19,7 +19,7 @@ class ProjectManager
   #  
   start: ->
     console.log "Start ProjectManager"
-    $(".collapse").collapse()
+    
     
       
   
@@ -35,20 +35,60 @@ class ProjectManager
   onFeaturePopupShown: (e) =>
     # Fetch features
     
+    
     if @features is `undefined` or @features is false
       
       @fetchFeatures ((features) =>
+        console.log "Got Features"
         @render(features, $('#features_list'))
+        $('#accordion2').collapse({
+          toggle: true
+        })
+        
+        $('#accordion2').css 'height', '100%'
+        
+        @features = features
+        
       ), (error) =>
         console.log "Error loading features:", error
-        
       
+        
+
       
     #else
     #  @render @features
     
   render: (data, dest) =>
-    console.log el, dest
+    console.log data, dest
+    
+    accord = $('<div />').addClass('accordion')
+    accord.attr 'id', 'accordion2'
+    
+    $.template "cellTmpl", "<div class='accordion-group'>" +
+      "<div class='accordion-heading'>" + 
+      "<a href='#${bodyId}' data-toggle='collapse' class='accordion-toggle' data-parent='#accordion2' >${name}</a></div>" +
+      "<div class='accordion-body collapse' id='${bodyId}' style='height: 0px; '>"+
+      "<div class='accordion-inner'>${bodyData}</div>"+
+      "</div></div>" 
+    
+    data.map (feature) =>
+      
+      tmplData = 
+        groupId: "group#{feature.id}"
+        bodyId: "info#{feature.id}"
+        bodyData: feature.description
+        name: feature.name
+
+      $.tmpl('cellTmpl', tmplData).appendTo(accord)
+      
+    
+    dest.children().remove()  
+    dest.append accord
+    
+    
+    
+    console.log data, dest
+    #$(".collapse").collapse()
     
   fetchFeatures: (successClb, errorClb) =>
     
@@ -56,8 +96,9 @@ class ProjectManager
       url: @getFeaturesUrl
       dataType: 'json'
       success: (data) =>
-        console.log data
+        console.log "Success", data
         successClb(data)
+        
         
       error: (error) =>
         console.log error
