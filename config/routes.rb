@@ -24,6 +24,10 @@ Fastspec::Application.routes.draw do
   match 'projects/:id/add/feature/:feature_id' => 'projects#add_feature', as: 'project_add_feature'
   match 'projects/:id/delete/feature/:feature_id' => 'projects#delete_feature', as: 'project_delete_feature'
   match 'projects/:id/update/feature/:feature_id' => 'projects#update_feature', as: 'project_update_feature'
+  match 'join/team/:id/:token' => 'invite#join_team', as: 'join_team'
+  
+  resources :invites
+  match 'invite' => 'invites#new', as: 'new_invite'
 
   namespace "api" do
     namespace "v1" do

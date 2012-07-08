@@ -1,0 +1,9 @@
+%h1 
+  Invite yor friends to
+  %em= current_team.name
+
+%br
+= simple_form_for @invite, html: { class: 'form-inline' }  do |f|
+  = f.error_notification
+  = f.input_field :email, :required => true, :placeholder => 'Email'
+  = f.button :submit, 'Invite!'
