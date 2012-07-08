@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate_user!
-  respond_to :html, :json
+  before_filter :authenticate_user!, :except => [:show]
+  respond_to :html, :json, :pdf
   
   # GET /projects
   # GET /projects.json

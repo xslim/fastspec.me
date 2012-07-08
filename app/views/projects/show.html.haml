@@ -42,10 +42,14 @@
             %button.add_comment_btn.btn.btn-success.btn-mini{:'data-feature-id' => f.id}
               Add comment
           
+/
+  = link_to 'Edit', edit_project_path(@project)
+  \|
+  = link_to 'Back', projects_path
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+= link_to @project, class: 'btn js-btn' do
+  %i.icon-print
+  Print PDF »
 
 #add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
   .modal-header
