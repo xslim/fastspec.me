@@ -36,7 +36,7 @@ set :use_sudo, false
 set :deploy_to, "/home/deployer/#{application}/dev"
 set :runner, user
 
-set :rails_env, "development"
+set :rails_env, "production"
 
 #set :gem_home, "/Users/slim/.rvm/gems/ruby-1.9.3-p194"
 
