@@ -3,7 +3,7 @@
   %em= @feature.name
 .row
   .span6
-    = image_tag @feature.image
+    = image_tag @feature.image if @feature.image?
   .span6
     %p= @feature.description
 

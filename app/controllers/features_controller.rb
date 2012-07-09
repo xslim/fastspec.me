@@ -4,7 +4,7 @@ class FeaturesController < ApplicationController
   # GET /features
   # GET /features.json
   def index
-    @features = Feature.all
+    @features = Feature.in_team
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class FeaturesController < ApplicationController
   # GET /features/1
   # GET /features/1.json
   def show
-    @feature = Feature.find(params[:id])
+    @feature = Feature.in_team.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,6 +27,7 @@ class FeaturesController < ApplicationController
   # GET /features/new.json
   def new
     @feature = Feature.new
+    @all_tags = Feature.in_team.tags
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,7 +37,8 @@ class FeaturesController < ApplicationController
 
   # GET /features/1/edit
   def edit
-    @feature = Feature.find(params[:id])
+    @feature = Feature.in_team.find(params[:id])
+    @all_tags = Feature.in_team.tags
   end
 
   # POST /features
@@ -59,7 +61,7 @@ class FeaturesController < ApplicationController
   # PUT /features/1
   # PUT /features/1.json
   def update
-    @feature = Feature.find(params[:id])
+    @feature = Feature.in_team.find(params[:id])
 
     respond_to do |format|
       if @feature.update_attributes(params[:feature])
@@ -75,7 +77,7 @@ class FeaturesController < ApplicationController
   # DELETE /features/1
   # DELETE /features/1.json
   def destroy
-    @feature = Feature.find(params[:id])
+    @feature = Feature.in_team.find(params[:id])
     @feature.destroy
 
     respond_to do |format|

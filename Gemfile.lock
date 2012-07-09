@@ -181,6 +181,9 @@ GEM
       mongoid (>= 2.4.6)
       rake
       rspec (>= 2.9)
+    mongoid-simple-tags (0.0.6)
+      bson_ext (~> 1.6)
+      mongoid (~> 2.4)
     multi_json (1.3.6)
     multipart-post (1.1.5)
     net-scp (1.0.4)
@@ -268,6 +271,8 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    select2-rails (0.0.7)
+      thor (~> 0.14)
     selenium-webdriver (2.24.0)
       childprocess (>= 0.2.5)
       libwebsocket (~> 0.1.3)
@@ -329,6 +334,7 @@ DEPENDENCIES
   launchy (>= 2.1.0)
   mongoid (>= 2.4.11)
   mongoid-rspec (>= 1.4.4)
+  mongoid-simple-tags (= 0.0.6)
   omniauth-facebook
   pdfkit
   rabl
@@ -338,6 +344,7 @@ DEPENDENCIES
   rspec-rails (>= 2.10.1)
   rvm-capistrano
   sass-rails (~> 3.2.3)
+  select2-rails
   simple_form
   therubyracer
   thin

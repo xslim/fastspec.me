@@ -1,6 +1,7 @@
 class Feature
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Document::Taggable
 
   field :name, :type => String
   field :description, :type => String
@@ -17,6 +18,10 @@ class Feature
   include TeamHelper
   scope :in_team, where(team_id: TeamHelper.current_team_id)
   #default_scope where(team_id: TeamHelper.current_team_id)
+
+  def self.tags
+    self.all_tags.map{|e| e[:name] }.flatten
+  end
 
 end
 

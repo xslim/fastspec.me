@@ -15,4 +15,5 @@
 //= require jquery_tmpl
 //= require bootstrap
 //= require best_in_place
+//= require select2
 //= require_tree .
