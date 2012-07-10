@@ -9,9 +9,9 @@ Fastspec::Application.routes.draw do
     root :to => 'dashboard#index'
   end
 
-  #root :to => "home#index"
   root :to => "home#index"
   match 'dashboard' => "dashboard#index", as: 'dashboard'
+  match 'home' => "home#index", as: 'home'
 
   
   devise_for :users
