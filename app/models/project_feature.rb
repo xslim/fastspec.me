@@ -7,10 +7,10 @@ class ProjectFeature < Feature
   
   # telling Mongoid::History how you want to track changes
   track_history   :on => [:name, :description, :estimate, :image],       # track title and body fields only, default is :all
-              :modifier_field => :modifier, # adds "referenced_in :modifier" to track who made the change, default is :modifier
-              :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
+              #:modifier_field => :modifier, # adds "referenced_in :modifier" to track who made the change, default is :modifier
+              #:version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
               :track_create   =>  true,    # track document creation, default is false
-              :track_update   =>  true,     # track document updates, default is true
+              #:track_update   =>  true,     # track document updates, default is true
               :track_destroy  =>  true,    # track document destruction, default is false
               :scope => :project
 

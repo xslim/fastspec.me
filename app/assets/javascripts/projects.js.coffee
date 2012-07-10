@@ -22,7 +22,14 @@ class ProjectManager
     @addCommentBtn.on "click", @onAddComment
     @saveCommentBtn.on "click", @onCommentSave
     
-    $(document.body).on 'FS::AddFeatureToProject', @onAddFeatureToProject
+    $(document.body).bind 'FS::FeatureListUpdated', @onListUpdated
+    
+    $(document.body).bind 'FS::AddFeatureToProject', @onAddFeatureToProject
+    
+    $(".best_in_place").bind "ajax:success", () =>
+       console.log "Success on in-place update"
+       $(document.body).trigger 'FS::FeatureListUpdated'
+    
   #
   #
   #  
@@ -30,7 +37,10 @@ class ProjectManager
     console.log "Start ProjectManager"
     
     
-      
+  
+  onListUpdated: =>
+    console.log "On List Updated"
+    @updateEstimateTotal()    
   
   onAddProject: (e) =>
     console.log "On Add Project"
@@ -57,6 +67,7 @@ class ProjectManager
         $('#accordion2').css 'height', '100%'
         
         @features = features
+        @updateEstimateTotal()
         
       ), (error) =>
         console.log "Error loading features:", error
@@ -102,6 +113,7 @@ class ProjectManager
     console.log data, dest
     $('.addFeature').on 'click', @onDoAddFeature
     #$(".collapse").collapse()
+
   
   
   onDoAddFeature: (e) =>
@@ -169,14 +181,22 @@ class ProjectManager
 
     renderedFeature = $.tmpl('featureRow', feature)
     
-    $('#featureListTable tr:last').after(renderedFeature)
+    $('#featureListTable tr:last').before(renderedFeature)
     
     commentBtn = $('.add_comment_btn')
     commentBtn.off 'click'
     commentBtn.on "click", @onAddComment
-
     
     
+    
+  updateEstimateTotal: =>
+    
+    elements = $('span[data-attribute="estimate"]')
+    value = 0
+    elements.map (index, element) =>
+      value = value + parseInt(element.innerHTML)
+    console.log "Update estimate to #{value} hours"
+    $('#estimate_total').text(value)
     
   onAddComment: (e) =>
     btn = $(e.currentTarget)
@@ -228,4 +248,5 @@ jQuery ->
   $('.best_in_place').best_in_place()
   pm = new ProjectManager
   pm.start()
+  window.pm = pm
   
