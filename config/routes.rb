@@ -29,6 +29,8 @@ Fastspec::Application.routes.draw do
   match 'invite' => 'invites#new', as: 'new_invite'
   match 'join/:token' => 'invites#join', as: 'join_invite'
 
+  match 'changelog' => 'changelog#index'
+
   namespace "api" do
     namespace "v1" do
       get "features" => "features#get"

@@ -1,0 +1,9 @@
+%h1 Changelog
+%br
+%h2 Latest 20
+    
+%table.table.table-striped
+  - @log.each do |l|
+    %tr
+      - l.split('|').each do |e|
+        %td= e
