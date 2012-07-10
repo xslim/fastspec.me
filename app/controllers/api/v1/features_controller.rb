@@ -19,28 +19,31 @@ class Api::V1::FeaturesController < ::Api::ApiController
     
     feature_image = @feature.image
     
-    #ProjectFeature.new_from_feature(@feature)
-    
-    project_feature =  @project.project_features.new
+    #
+    #ProjectFeature.new_from_feature(@feature) 
+    project_feature = @project.project_features.new
     attributes = @feature.attributes
     attributes.delete('package_ids')
     attributes.delete('image')
     attributes['original_id'] = attributes.delete('_id').to_s  
+    attributes['_type'] = 'ProjectFeature'
     project_feature.attributes = attributes
       
     project_feature.image.store! feature_image.file if feature_image
     #project_feature.save!
-
+    
     if !@project.save
       @resp = {:json => {:error => 'Cannot save project'}, :status => :bad_request}
     else
-      @resp = {:json => project_feature, :status => :ok} 
+      @project.reload()
+      @resp = {:json => @project.project_features.find(project_feature.id), :status => :ok} 
     end  
     
     respond_to do |format|
       format.json {render @resp}
     end  
     
+    #@feature = project_feature
     
   end 
   

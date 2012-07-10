@@ -140,8 +140,12 @@ class ProjectsController < ApplicationController
     feature = (@project.project_features.find(params[:feature_id]) rescue nil)
 
     if feature
-      feature.update_attributes(params[:project_feature])
-      respond_with_bip feature
+      feature.attributes = params[:project_feature]
+      if @project.save
+        respond_with_bip @project.project_features.find(params[:feature_id])
+      else 
+        logger.error "Cannot save project"  
+      end    
     end
   end
 

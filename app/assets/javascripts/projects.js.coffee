@@ -148,14 +148,20 @@ class ProjectManager
   addFeatureRow: (feature) =>
     feature.project_id = @projectId
     $.template "featureRow",  "<tr data-target='#details_${_id}' data-toggle='collapse'><td>" +
-      '<span class="best_in_place" id="best_in_place_feature_${_id}_name" data-url="/projects/${project_id}/update/feature/${_id}" data-object="feature" data-attribute="name" data-nil="Enter feature name" data-type="input">${name}</span>' +
+      '<span class="best_in_place" id="best_in_place_project_feature_${_id}_name" ' +
+        'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" data-attribute="name" '+
+        'data-nil="Enter feature name" data-type="input">${name}</span>' +
       '</td>' +
-      '<td><span class="best_in_place" id="best_in_place_feature_${_id}_estimate" data-url="/projects/${project_id}/update/feature/${_id}" data-object="feature" data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
+      '<td><span class="best_in_place" id="best_in_place_project_feature_${_id}_estimate" ' +
+        'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
+        'data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
       '<td><a href="/projects/${project_id}/delete/feature/${_id}" rel="nofollow">Delete</a></td></tr>' +
       '<tr><td colspan="3" style="height: 0px;">' +
       '<div class="in collapse" id="details_4ff96bfe57e64ac96500001d" style="height: auto; ">' +
       '<div class="alert alert-info">' +
-      '<span class="best_in_place" id="best_in_place_feature_${_id}_description" data-url="/projects/${project_id}/update/feature/${_id}" data-object="feature" data-attribute="description" data-nil="Enter Description of this Task" data-type="input">${description}</span></div>' +
+      '<span class="best_in_place" id="best_in_place_project_feature_${_id}_description" '+
+        'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
+        'data-attribute="description" data-nil="Enter Description of this Task" data-type="input">${description}</span></div>' +
       '<br><div class="comments" id="comments_${_id}"></div>' +
       '<div class="btn-group">' +
       '<button class="add_comment_btn btn btn-success btn-mini" data-feature-id="${_id}">Add comment</button>' +
@@ -164,6 +170,13 @@ class ProjectManager
     renderedFeature = $.tmpl('featureRow', feature)
     
     $('#featureListTable tr:last').after(renderedFeature)
+    
+    commentBtn = $('.add_comment_btn')
+    commentBtn.off 'click'
+    commentBtn.on "click", @onAddComment
+
+    
+    
     
   onAddComment: (e) =>
     btn = $(e.currentTarget)
