@@ -1,4 +1,5 @@
-= link_to "Fastspec", root_path, :class => 'brand'
+= link_to_unless_current("Fastspec", root_path, :class => 'brand') do
+  = link_to("Fastspec", home_path, :class => 'brand')
 
 - if user_signed_in?
   - if current_team
