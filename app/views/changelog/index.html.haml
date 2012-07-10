@@ -5,5 +5,10 @@
 %table.table.table-striped
   - @log.each do |l|
     %tr
-      - l.split('|').each do |e|
-        %td= e
+      %td
+        = gravatar_image_tag(l[:email], gravatar: {size: 20})
+        = l[:name]
+      %td
+        %em= l[:hash]
+      %td= l[:time]
+      %td= l[:message]
