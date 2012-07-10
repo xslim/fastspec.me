@@ -45,6 +45,8 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(params[:team])
     @team.users << current_user
+    
+    current_user.has_role!(:write, @team)
 
 
     respond_to do |format|

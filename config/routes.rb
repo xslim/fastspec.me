@@ -16,7 +16,7 @@ Fastspec::Application.routes.draw do
   
   devise_for :users
   resources :users, :only => [:show, :index]
-  match 'users/rolify' => 'users#rolify'
+  match 'user/rolify' => 'users#rolify'
   
   resources :projects
   resources :teams
