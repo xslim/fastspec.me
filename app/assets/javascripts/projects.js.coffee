@@ -9,6 +9,7 @@ class ProjectManager
     @getFeaturesUrl = "#{@baseUrl}/features"
     @addFeatureToProjectUri = "#{@baseUrl}/project/feature.json"
     @addCommentToFeatureInProjectUrl = "#{@baseUrl}/project/feature/comment.json"
+    @deleteFeatureFromProjectUrl = "#{@baseUrl}/project/feature.json" # DELETE
     
     @addProjectBtn = $('#add_project_btn')
     @addFeatureBtn = $('#add_feature_btn')
@@ -16,20 +17,26 @@ class ProjectManager
     @addCommentBtn = $('.add_comment_btn')
     @saveCommentBtn = $('#save_comment_btn')
     @addCommentForm = $('#add_comment_form')
+    @removeFeatureBtn = $('.remove_feature_btn')
     
     @addProjectBtn.on "click", @onAddProject
     @addFeatureBtn.on "click", @onAddFeature
     @addCommentBtn.on "click", @onAddComment
     @saveCommentBtn.on "click", @onCommentSave
+    @removeFeatureBtn.bind "click", @onRemoveFeature
     
     $(document.body).bind 'FS::FeatureListUpdated', @onListUpdated
     
     $(document.body).bind 'FS::AddFeatureToProject', @onAddFeatureToProject
     
+    @bindBestInPlace()
+  
+  
+  bindBestInPlace: =>
+    $(".best_in_place").off "ajax:success"
     $(".best_in_place").bind "ajax:success", () =>
        console.log "Success on in-place update"
-       $(document.body).trigger 'FS::FeatureListUpdated'
-    
+       $(document.body).trigger 'FS::FeatureListUpdated'  
   #
   #
   #  
@@ -159,7 +166,7 @@ class ProjectManager
   
   addFeatureRow: (feature) =>
     feature.project_id = @projectId
-    $.template "featureRow",  "<tr data-target='#details_${_id}' data-toggle='collapse'><td>" +
+    $.template "featureRow",  "<tr data-target='#details_${_id}' data-toggle='collapse' data-row-feature-id='${_id}'><td>" +
       '<span class="best_in_place" id="best_in_place_project_feature_${_id}_name" ' +
         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" data-attribute="name" '+
         'data-nil="Enter feature name" data-type="input">${name}</span>' +
@@ -167,9 +174,10 @@ class ProjectManager
       '<td><span class="best_in_place" id="best_in_place_project_feature_${_id}_estimate" ' +
         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
         'data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
-      '<td><a href="/projects/${project_id}/delete/feature/${_id}" rel="nofollow">Delete</a></td></tr>' +
-      '<tr><td colspan="3" style="height: 0px;">' +
-      '<div class="in collapse" id="details_4ff96bfe57e64ac96500001d" style="height: auto; ">' +
+      '<td><button class="btn btn-mini btn-danger remove_feature_btn" data-feature-id="${_id}">Remove</button></td>'+
+      '</tr>' +
+      '<tr data-row-feature-id="${_id}"><td colspan="3" style="height: 0px;">' +
+      '<div class="collapse" id="details_${_id}" style="height: auto; ">' +
       '<div class="alert alert-info">' +
       '<span class="best_in_place" id="best_in_place_project_feature_${_id}_description" '+
         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
@@ -186,8 +194,11 @@ class ProjectManager
     commentBtn = $('.add_comment_btn')
     commentBtn.off 'click'
     commentBtn.on "click", @onAddComment
-    
-    
+    $(document.body).trigger 'FS::FeatureListUpdated'
+    removeBtn = $('.remove_feature_btn')
+    removeBtn.off 'click'
+    removeBtn.bind 'click', @onRemoveFeature
+    @bindBestInPlace()
     
   updateEstimateTotal: =>
     
@@ -242,7 +253,37 @@ class ProjectManager
         $.tmpl('commentRow', data).appendTo(cWrapper)
         
       error: (error) =>
-        console.log error  
+        console.log error 
+  
+  onRemoveFeature: (e) =>
+    btn = $(e.currentTarget)
+    fid = btn.attr 'data-feature-id'
+    form = $('#add_comment_form')
+    pid = form.attr "data-project-id"
+    
+    $.ajax
+      url: @deleteFeatureFromProjectUrl       
+      type: 'delete'
+      dataType: 'json'
+      data:
+        pid: pid
+        fid: fid
+      success: (data) =>
+        if data.status is 200
+          rows = $("tr[data-row-feature-id=#{fid}]")
+          rows.remove()
+          $(document.body).trigger 'FS::FeatureListUpdated'
+        
+      error: (xhr, error, text) =>
+        console.log xhr.responseText    
+        resp = JSON.parse(xhr.responseText)
+        
+        if resp isnt null and resp.error isnt null
+          alert resp.error
+  
+      
+    console.log "Remove feature #{fid} from project #{pid}"
+    #
       
 jQuery ->
   $('.best_in_place').best_in_place()

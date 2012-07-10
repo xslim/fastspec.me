@@ -12,17 +12,19 @@
     %th Actions
 
   - @project.project_features.each do |f|
-    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}"}
+    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}", :"data-row-feature-id" => f.id}
       %td
         = image_tag(f.image.small_thumb) if f.image?
         = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
       %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
       %td
-        = link_to 'Delete', project_delete_feature_path(@project, f)
+        %button.btn.btn-mini.btn-danger.remove_feature_btn{:'data-feature-id' => f.id}
+          Remove
+        -#= link_to 'Delete', project_delete_feature_path(@project, f)
     
         
         
-    %tr
+    %tr{:"data-row-feature-id" => f.id}
       %td{:colspan => 3, :style => 'height: 0px;'}
         %div.collapse{:id => "details_#{f.id}"}   
           .alert.alert-info
@@ -54,6 +56,8 @@
   \|
   = link_to 'Back', projects_path
 
+
+  
 = link_to(project_path(@project, :format => :pdf), :target => "_blank", class: 'btn js-btn') do
   %i.icon-print
   Print PDF »

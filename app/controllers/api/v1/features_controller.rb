@@ -71,4 +71,26 @@ class Api::V1::FeaturesController < ::Api::ApiController
     
   end 
   
+  def remove_feature_from_project
+    pid = params[:pid]
+    fid = params[:fid]
+    
+    begin
+      @project = Project.find(pid)
+      @feature = @project.project_features.find(fid)
+      if @feature.delete
+        @resp = {:json => {:status => 200}, :status => :ok}
+      else
+        @resp = {:json => {:error => 'Cannot remove this feature'}, :status => :bad_request}  
+      end  
+      
+    rescue Mongoid::Errors::DocumentNotFound
+      @resp = {:json => {:error => 'Feature is not found in the project'}, :status => :bad_request}  
+    end  
+    
+    respond_to do |format|
+      format.json {render @resp}
+    end
+    
+  end
 end  
