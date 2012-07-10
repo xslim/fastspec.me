@@ -307,7 +307,22 @@ class ProjectManager
     
     console.log "Attaching image to feature #{fid} in project #{pid}"
     
+    pid_fld = $('#attach_image_form > #pid')
+    fid_fld = $('#attach_image_form > #fid')
+    
+    pid_fld.val(pid)
+    fid_fld.val(fid)
+    
     form.modal()
+      
+    $(document.body).bind "FS::ImageUploaded", (e, url) =>
+      form.modal('hide')
+      console.log "File is uploaded", filename 
+      
+      img = $("#img#{fid}")  
+      console.log img 
+      img.attr 'src', url
+      $(document.body).off 'FS::ImageUploaded'
       
       
 jQuery ->

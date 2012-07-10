@@ -93,4 +93,30 @@ class Api::V1::FeaturesController < ::Api::ApiController
     end
     
   end
+  
+  def attach_picture_to_feature
+    pid = params[:pid]
+    fid = params[:fid]
+    
+    
+    if remotipart_submitted?
+      @image = params[:image]
+      
+      @project = Project.find(pid)
+      @feature = @project.project_features.find(fid)
+      
+      #@feature.image = @image
+      @feature.image.store! @image
+      @project.save!
+      logger.debug "We've got a file"
+      
+    end
+    
+    respond_to do |format|
+      #format.json {render :json => {:image => params[:image]}, :status => :ok}
+      format.js
+    end
+    
+  end  
+  
 end  

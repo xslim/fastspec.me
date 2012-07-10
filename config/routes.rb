@@ -43,6 +43,7 @@ Fastspec::Application.routes.draw do
       post 'project/feature' => 'features#add_feature_to_project'
       post 'project/feature/comment' => 'features#add_comment_to_feature'
       delete 'project/feature' => 'features#remove_feature_from_project'
+      post 'project/feature/attach' => 'features#attach_picture_to_feature'
     end
     
   end

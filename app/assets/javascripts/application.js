@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require jquery_tmpl
 //= require bootstrap
 //= require best_in_place
 //= require select2
-//= require_tree .
+//= require features
+//= require projects
