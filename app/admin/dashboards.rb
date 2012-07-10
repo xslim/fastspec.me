@@ -1,4 +1,5 @@
 ActiveAdmin::Dashboards.build do
+  
 
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just

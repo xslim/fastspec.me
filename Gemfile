@@ -35,6 +35,7 @@ gem "bson_ext", ">= 1.6.4"
 gem "mongoid", ">= 2.4.11"
 gem "mongoid-simple-tags", "0.0.6"
 gem 'select2-rails'
+gem 'mongoid_roles'
 
 gem "devise", ">= 2.1.0"
 gem 'omniauth-facebook'

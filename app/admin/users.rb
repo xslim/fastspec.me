@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  menu :if => proc{ current_user.has_role?(:superadmin) }
   
   index do
     column :name

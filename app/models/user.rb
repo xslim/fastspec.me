@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Roles::Subject
   
   
   # Include default devise modules. Others available are:
@@ -62,5 +63,9 @@ class User
   include TeamHelper
   scope :in_team, where(:team_ids.in => [TeamHelper.current_team_id])
   #default_scope where(:team_ids.in => [TeamHelper.current_team_id])
+
+  def self.find_by_email(email)
+    self.first(conditions: { email: email} )
+  end
 
 end

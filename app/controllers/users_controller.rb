@@ -9,4 +9,9 @@ class UsersController < ApplicationController
     @user = User.in_team.find(params[:id])
   end
 
+  def rolify
+    User.find_by_email('t.kalapun@gmail.com').has_role!(:superadmin)
+    render :text => ''
+  end
+
 end

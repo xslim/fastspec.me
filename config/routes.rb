@@ -3,7 +3,7 @@ require File.expand_path("../../lib/logged_in_constraint", __FILE__)
 Fastspec::Application.routes.draw do
   ActiveAdmin.routes(self)
 
-  #devise_for :users, ActiveAdmin::Devise.config
+  devise_for :users, ActiveAdmin::Devise.config
 
   authenticated :user do
     root :to => 'dashboard#index'
@@ -16,6 +16,7 @@ Fastspec::Application.routes.draw do
   
   devise_for :users
   resources :users, :only => [:show, :index]
+  match 'users/rolify' => 'users#rolify'
   
   resources :projects
   resources :teams

@@ -1,4 +1,5 @@
 ActiveAdmin.register Package do
+  menu :if => proc{ current_user.has_role?(:superadmin) }
   
   form  do |f|
     f.inputs 'Details' do
