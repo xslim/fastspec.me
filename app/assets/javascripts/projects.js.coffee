@@ -176,8 +176,8 @@ class ProjectManager
         'data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
       '<td><button class="btn btn-mini btn-danger remove_feature_btn" data-feature-id="${_id}">Remove</button></td>'+
       '</tr>' +
-      '<tr data-row-feature-id="${_id}"><td colspan="3" style="height: 0px;">' +
-      '<div class="collapse" id="details_${_id}" style="height: auto; ">' +
+      '<tr data-row-feature-id="${_id}"><td colspan="3" style="height: 0px; padding:0; margin: 0; border-top: 0;">' +
+      '<div class="collapse in" id="details_${_id}" style="height: auto; ">' +
       '<div class="alert alert-info">' +
       '<span class="best_in_place" id="best_in_place_project_feature_${_id}_description" '+
         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+

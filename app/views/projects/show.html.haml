@@ -12,7 +12,7 @@
     %th Actions
 
   - @project.project_features.each do |f|
-    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}", :"data-row-feature-id" => f.id}
+    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}", :"data-ro-feature-id" => f.id}
       %td
         = image_tag(f.image.small_thumb) if f.image?
         = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
@@ -25,7 +25,7 @@
         
         
     %tr{:"data-row-feature-id" => f.id}
-      %td{:colspan => 3, :style => 'height: 0px;'}
+      %td{:colspan => 3, :style => 'height: 0px; padding:0; margin: 0; border-top: 0;'}
         %div.collapse{:id => "details_#{f.id}"}   
           .alert.alert-info
             = best_in_place f, :description, path: project_update_feature_path(@project, f), nil: "Enter Description of this Task"
