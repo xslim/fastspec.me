@@ -61,3 +61,4 @@ gem 'rvm-capistrano'
 gem 'thin'
 
 gem 'rabl'
+gem 'mongoid-history'
