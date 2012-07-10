@@ -18,12 +18,16 @@ class ProjectManager
     @saveCommentBtn = $('#save_comment_btn')
     @addCommentForm = $('#add_comment_form')
     @removeFeatureBtn = $('.remove_feature_btn')
+    @addImagePopup = $('#add_image_popup')
+    @addImageBtn = $('.add_image_btn')
+    
     
     @addProjectBtn.on "click", @onAddProject
     @addFeatureBtn.on "click", @onAddFeature
     @addCommentBtn.on "click", @onAddComment
     @saveCommentBtn.on "click", @onCommentSave
     @removeFeatureBtn.bind "click", @onRemoveFeature
+    @addImageBtn.bind "click", @onAddImage
     
     $(document.body).bind 'FS::FeatureListUpdated', @onListUpdated
     
@@ -286,6 +290,17 @@ class ProjectManager
       
     console.log "Remove feature #{fid} from project #{pid}"
     #
+  onAddImage: (e) =>
+    btn = $(e.currentTarget)
+    fid = btn.attr 'data-feature-id'
+    
+    form = $('#add_image_popup')
+    pid = form.attr "data-project-id"
+    
+    console.log "Attaching image to feature #{fid} in project #{pid}"
+    
+    form.modal()
+      
       
 jQuery ->
   $('.best_in_place').best_in_place()

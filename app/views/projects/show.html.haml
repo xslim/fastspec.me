@@ -40,9 +40,11 @@
                 at 
                 = com.created_at
             
-          .btn-group
+          .btn-group{:style => 'margin:5px;'}
             %button.add_comment_btn.btn.btn-success.btn-mini{:'data-feature-id' => f.id}
               Add comment
+            %button.add_image_btn.btn.btn-alert.btn-mini{:'data-feature-id' => f.id}
+              Attach image
     
   %tr
     %td{:colspan => 2}
@@ -105,6 +107,21 @@
   .modal-footer
     %button.btn{:"data-dismiss" =>"modal"}
       Close
+
+#add_image_popup.modal.hide.fade{:'data-project-id' => @project.id}
+  .modal-header
+    %button.close{:"data-dismiss" =>"modal"}
+      x
+    %h3 Attach Image
+  .modal-body
+    %form
+      %input{:type => 'file', :name => 'image_file'}
+      
+  .modal-footer
+    %button.btn{:"data-dismiss" =>"modal"}
+      Close
+    %button.btn.btn-success#attach_image_btn{:'data-project-id' => @project.id}
+      Attach  
       
 %script{:type => 'text/javascript'}
   $(document).ready(function() {
