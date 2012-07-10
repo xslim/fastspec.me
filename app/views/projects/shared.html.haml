@@ -1,0 +1,33 @@
+%h1.page-header= @project.name
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Feature
+      %th Estimate, hours
+
+  %tbody
+    - total = 0
+    - @project.project_features.each do |f|
+      - total += f.estimate
+      %tr
+        %td
+          = image_tag(f.image.small_thumb) if f.image?
+          = f.name
+        %td= f.estimate
+  %tfoot
+    %tr
+      %td Total, hours:
+      %td= total
+          
+= link_to(shared_project_path(@project.share_token, :format => :pdf), :target => "_blank", class: 'btn js-btn') do
+  %i.icon-print
+  Print PDF »
+  
+/
+  %a.print-preview
+    %i.icon-print
+    Print »
+
+
+

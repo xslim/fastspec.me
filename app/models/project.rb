@@ -4,6 +4,7 @@ class Project
   include Mongoid::Roles::Object
   
   field :name, :type => String
+  field :share_token, :type => String
 
   belongs_to :team
 
@@ -14,6 +15,10 @@ class Project
   #default_scope where(team_id: TeamHelper.current_team_id)
   
   include Mongoid::History::Trackable
+
+  def self.find_by_share_token(token)
+    self.first(conditions: { share_token: token} )
+  end
   
   # telling Mongoid::History how you want to track changes
   track_history   :on => [:name],       # track title and body fields only, default is :all

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show]
+  before_filter :authenticate_user!, :except => [:shared]
   respond_to :html, :json, :pdf
   
   # GET /projects
@@ -17,6 +17,32 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @project }
+      format.pdf
+    end
+  end
+
+  def share
+    @project = Project.find(params[:id])
+    @project.share_token ||= Devise.friendly_token[0,7]
+    @project.save
+
+    render :show
+  end
+
+  def unshare
+    @project = Project.find(params[:id])
+    @project.share_token = nil
+    @project.save
+
+    render :show
+  end
+
+  def shared
+    @project = Project.find_by_share_token(params[:token])
 
     respond_to do |format|
       format.html # show.html.erb

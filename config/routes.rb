@@ -26,6 +26,10 @@ Fastspec::Application.routes.draw do
   match 'projects/:id/add/feature/:feature_id' => 'projects#add_feature', as: 'project_add_feature'
   match 'projects/:id/delete/feature/:feature_id' => 'projects#delete_feature', as: 'project_delete_feature'
   match 'projects/:id/update/feature/:feature_id' => 'projects#update_feature', as: 'project_update_feature'
+
+  match 'projects/:id/share' => 'projects#share', as: 'share_project'
+  match 'projects/:id/unshare' => 'projects#unshare', as: 'unshare_project'
+  match 'p/:token' => 'projects#shared', as: 'shared_project'
   
   resources :invites
   match 'invite' => 'invites#new', as: 'new_invite'

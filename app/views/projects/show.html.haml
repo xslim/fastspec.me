@@ -63,6 +63,16 @@
     %i.icon-print
     Print »
 
+- if @project.share_token
+  %b Shared:
+  = shared_project_url(@project.share_token)
+  = link_to(unshare_project_path(@project)) do
+    %i.icon-remove
+- else
+  = link_to(share_project_path(@project)) do
+    %i.icon-share-alt
+    Share
+
 
 #add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
   .modal-header

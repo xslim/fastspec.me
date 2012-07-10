@@ -9,7 +9,7 @@
     %p= link_to 'New Project', new_project_path
 
     %table.table.table-striped
-      - @team.projects.each do |project|
+      - @projects.each do |project|
         %tr
           %td= link_to project.name, project
 
