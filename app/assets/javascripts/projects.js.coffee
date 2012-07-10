@@ -271,7 +271,9 @@ class ProjectManager
       success: (data) =>
         if data.status is 200
           rows = $("tr[data-row-feature-id=#{fid}]")
+          console.log rows
           rows.remove()
+          
           $(document.body).trigger 'FS::FeatureListUpdated'
         
       error: (xhr, error, text) =>

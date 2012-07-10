@@ -12,7 +12,7 @@
     %th Actions
 
   - @project.project_features.each do |f|
-    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}", :"data-ro-feature-id" => f.id}
+    %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}", :"data-row-feature-id" => f.id}
       %td
         = image_tag(f.image.small_thumb) if f.image?
         = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
