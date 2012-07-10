@@ -47,9 +47,14 @@
   \|
   = link_to 'Back', projects_path
 
-= link_to(projects_path(:format => :pdf), class: 'btn js-btn') do
+= link_to(project_path(@project, :format => :pdf), class: 'btn js-btn') do
   %i.icon-print
   Print PDF »
+  
+/
+  %a.print-preview
+    %i.icon-print
+    Print »
 
 
 #add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
