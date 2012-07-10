@@ -187,8 +187,9 @@ class ProjectManager
         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
         'data-attribute="description" data-nil="Enter Description of this Task" data-type="input">${description}</span></div>' +
       '<br><div class="comments" id="comments_${_id}"></div>' +
-      '<div class="btn-group">' +
+      '<div class="btn-group" style="margin:5px">' +
       '<button class="add_comment_btn btn btn-success btn-mini" data-feature-id="${_id}">Add comment</button>' +
+      '<button class="add_image_btn btn btn-alert btn-mini" data-feature-id="${_id}">Attach image</button>'  
       '</div></div></td></tr>' 
 
     renderedFeature = $.tmpl('featureRow', feature)
@@ -198,10 +199,17 @@ class ProjectManager
     commentBtn = $('.add_comment_btn')
     commentBtn.off 'click'
     commentBtn.on "click", @onAddComment
+    
     $(document.body).trigger 'FS::FeatureListUpdated'
+    
     removeBtn = $('.remove_feature_btn')
     removeBtn.off 'click'
     removeBtn.bind 'click', @onRemoveFeature
+    
+    attachBtn = $('.add_image_btn')
+    attachBtn.off 'click'
+    attachBtn.bind 'click', @onAddImage
+    
     @bindBestInPlace()
     
   updateEstimateTotal: =>
