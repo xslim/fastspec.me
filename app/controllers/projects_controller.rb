@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.in_team.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
     
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def share
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
     @project.share_token ||= Devise.friendly_token[0,7]
     @project.save
 
@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
   end
 
   def unshare
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
     @project.share_token = nil
     @project.save
 
@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   end
 
   def shared
-    @project = Project.find_by_share_token(params[:token])
+    @project = Project.in_team.find_by_share_token(params[:token])
     @team = (@project.team rescue nil)
 
     respond_to do |format|
@@ -66,7 +66,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
   end
 
   # POST /projects
@@ -91,7 +91,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -107,7 +107,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
     @project.destroy
 
     respond_to do |format|
@@ -118,7 +118,7 @@ class ProjectsController < ApplicationController
 
 
   def add_feature
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
 
     feature = (Feature.find(params[:feature_id]) rescue nil)
 
@@ -146,7 +146,7 @@ class ProjectsController < ApplicationController
   end
 
   def delete_feature
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
     feature = (@project.project_features.find(params[:feature_id]) rescue nil)
 
     if feature.nil?
@@ -166,7 +166,7 @@ class ProjectsController < ApplicationController
   end
 
   def update_feature
-    @project = Project.find(params[:id])
+    @project = Project.in_team.find(params[:id])
     feature = (@project.project_features.find(params[:feature_id]) rescue nil)
 
     if feature
@@ -177,6 +177,22 @@ class ProjectsController < ApplicationController
         logger.error "Cannot save project"  
       end    
     end
+  end
+
+  def update_features
+    @project = Project.in_team.find(params[:id])
+
+    @project.project_features.each do |f|
+      original_feature = (Feature.find(f.original_id) rescue nil)
+      if original_feature
+        attributes = f.attributes_from_feature(original_feature)
+        puts "---> attributes: #{attributes.inspect}"
+        f.attributes = attributes
+        @project.save
+      end
+    end
+
+    redirect_to @project, alert: 'Features were updated!' and return
   end
 
 end

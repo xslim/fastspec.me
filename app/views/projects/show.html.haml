@@ -49,12 +49,12 @@
 %br
 
 .btn-group
-  %a.btn{href:'#'} Actions
-  %a.btn.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
+  %button.btn.dropdown-toggle{'data-toggle' => 'dropdown'}
+    Actions
     %span.caret
   %ul.dropdown-menu
     %li
-      = link_to 'Update features from masters', '', :confirm => 'Are you sure? This will remove all your changes!'
+      = link_to 'Update features from masters', project_update_features_path(@project), :confirm => 'Are you sure? This will remove all your changes!'
 
 
 #add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
