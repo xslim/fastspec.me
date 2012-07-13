@@ -29,10 +29,7 @@
             = com.comment
             %br
             %br
-            %span.label  
-              = com.user_name
-              posted
-              = com.created_at.ago_in_words
+            %span.label #{com.user_name}, #{time_ago_in_words(com.created_at)}
 
       .btn-group{:style => 'margin:5px;'}
         %button.add_comment_btn.btn.btn-success.btn-mini{:'data-feature-id' => f.id}

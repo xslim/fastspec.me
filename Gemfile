@@ -64,5 +64,3 @@ gem 'thin'
 gem 'rabl'
 gem 'mongoid-history'
 gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git'
-
-gem 'time-ago-in-words'
