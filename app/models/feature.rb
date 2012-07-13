@@ -24,7 +24,7 @@ class Feature
 
   mount_uploader :image, ImageUploader
   
-  embeds_many :comments
+  embeds_many :comments, cascade_callbacks: true
 
   def comments_count
     self.comments.count
@@ -33,6 +33,8 @@ class Feature
   include TeamHelper
   scope :in_team, where(team_id: TeamHelper.current_team_id)
   #default_scope where(team_id: TeamHelper.current_team_id)
+  
+  #attr_accessible :image, :image_cache
 
   def self.tags
     self.all_tags.map{|e| e[:name] }.flatten

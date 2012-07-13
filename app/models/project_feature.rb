@@ -1,6 +1,8 @@
 class ProjectFeature < Feature
-
-  embedded_in :project
+  
+  field :image, :type => String
+  
+  embedded_in :project, :inverse_of => :project_features
   
   # note: tracking will not work until #track_history is invoked
   include Mongoid::History::Trackable
@@ -15,6 +17,8 @@ class ProjectFeature < Feature
               :scope => :project
 
 
+  mount_uploader :image, ImageUploader            
+
   def self.new_from_feature(feature)
     attributes = feature.attributes
     attributes.delete('package_ids')
@@ -22,4 +26,7 @@ class ProjectFeature < Feature
     attributes['original_id'] = attributes.delete('_id').to_s
     new(attributes)
   end
+  
+  
+    
 end

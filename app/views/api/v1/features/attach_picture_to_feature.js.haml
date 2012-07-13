@@ -1,3 +1,5 @@
 var filename =
 = "'"+@feature.image.small_thumb.url+"';"
-$(document.body).trigger('FS::ImageUploaded', [filename]);
+var thumb =
+= "'"+@feature.image.thumb.url+"';"
+$(document.body).trigger('FS::ImageUploaded', [filename, thumb]);

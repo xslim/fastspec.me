@@ -8,7 +8,7 @@ class Project
 
   belongs_to :team
 
-  embeds_many :project_features#, cascade_callbacks: true
+  embeds_many :project_features, :inverse_of => :project, cascade_callbacks: true
 
   include TeamHelper
   scope :in_team, where(team_id: TeamHelper.current_team_id)

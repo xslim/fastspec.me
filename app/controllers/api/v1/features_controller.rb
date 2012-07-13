@@ -104,16 +104,21 @@ class Api::V1::FeaturesController < ::Api::ApiController
       
       @project = Project.find(pid)
       @feature = @project.project_features.find(fid)
+      begin 
+        @feature.image.store! @image
+        @feature.save!
+        @project.save!
       
-      #@feature.image = @image
-      @feature.image.store! @image
-      @project.save!
+      rescue Mongoid::Errors::InvalidCollection
+        logger.error "This is workaround for carrierwave on embedded docs"
+      end
+      
       logger.debug "We've got a file"
       
     end
+    puts @feature.image.small_thumb.inspect
     
     respond_to do |format|
-      #format.json {render :json => {:image => params[:image]}, :status => :ok}
       format.js
     end
     

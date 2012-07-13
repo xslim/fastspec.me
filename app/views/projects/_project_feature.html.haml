@@ -1,36 +1,37 @@
 %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_#{f.id}", :"data-row-feature-id" => f.id}
   %td
-    %img{:id => "img#{f.id}", :src => f.image.small_thumb.url}
-    -#= image_tag(f.image.small_thumb.url, :id => "img#{f.id}")
+    %img{:id => "img#{f.id}", :src => f.image.small_thumb}
     = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
   %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
   %td
-    - if f.comments_count > 0
-      %i.icon-comment{style: 'opacity: 0.8'}
-      = f.comments_count
     %button.btn.btn-mini.btn-danger.remove_feature_btn{:'data-feature-id' => f.id}
       Remove
-    -#= link_to 'Delete', project_delete_feature_path(@project, f)
+
 %tr{:"data-row-feature-id" => f.id}
   %td{:colspan => 3, :style => 'height: 0px; padding:0; margin: 0; border-top: 0;'}
     %div.collapse{:id => "details_#{f.id}"}   
       .alert.alert-info
-        = best_in_place f, :description, path: project_update_feature_path(@project, f), nil: "Enter Description of this Task"
+        .row-fluid
+          .span10
+            = best_in_place f, :description, path: project_update_feature_path(@project, f), nil: "Enter Description of this Task"    
+          .span2
+            -#= image_tag(f.image.thumb, :id => "img_100_#{f.id}") 
+            %img{:id => "img_100_#{f.id}", :src => f.image.thumb}
+
       %br
       .comments{:id => "comments_#{f.id}"}
         - f.comments.each do |com|
           .alert.alert-info
             = com.comment
             %br
-            by
-            = com.user_name
-            at 
-            = com.created_at
-        
+            %br
+            %span.label  
+              = com.user_name
+              posted
+              = com.created_at.ago_in_words
+
       .btn-group{:style => 'margin:5px;'}
-        %button.add_comment_btn.btn.btn-mini{:'data-feature-id' => f.id}
-          %i.icon-comment
+        %button.add_comment_btn.btn.btn-success.btn-mini{:'data-feature-id' => f.id}
           Add comment
-        %button.add_image_btn.btn.btn-mini{:'data-feature-id' => f.id}
-          %i.icon-picture
+        %button.add_image_btn.btn.btn-alert.btn-mini{:'data-feature-id' => f.id}
           Attach image

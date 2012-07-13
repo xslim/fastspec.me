@@ -315,13 +315,15 @@ class ProjectManager
     
     form.modal()
       
-    $(document.body).bind "FS::ImageUploaded", (e, url) =>
+    $(document.body).bind "FS::ImageUploaded", (e, url, thumb) =>
       form.modal('hide')
       console.log "File is uploaded", filename 
       
       img = $("#img#{fid}")  
       console.log img 
       img.attr 'src', url
+      imgBig = $("#img_100_#{fid}}")
+      imgBig.attr 'src', thumb
       $(document.body).off 'FS::ImageUploaded'
       
       
