@@ -7,10 +7,10 @@ $iconBgPath: asset-url('grid-18px-masked.png', image);
 @import "bootstrap";
 
 body { 
-  padding-top: 60px;
+  #padding-top: 60px;
   background-image: $iconBgPath;
   background-repeat: repeat-x;
-  background-position-y: 40px;
+  #background-position-y: 40px;
 }
 
 body.preview {
@@ -18,11 +18,16 @@ body.preview {
   background-position-y: 0px;
 }
 
+header.navbar {
+  nav.navbar-inner {
+    border-radius: 0px;
+  }
+}
+
 .footer {
   margin-top: 45px;
   padding: 35px 0 36px;
-  border-top: 1px solid 
-  #E5E5E5;
+  border-top: 1px solid #E5E5E5;
 }
 
 .footer p {
