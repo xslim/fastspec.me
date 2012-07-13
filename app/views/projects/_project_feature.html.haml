@@ -16,7 +16,8 @@
             = best_in_place f, :description, path: project_update_feature_path(@project, f), nil: "Enter Description of this Task"    
           .span2
             -#= image_tag(f.image.thumb, :id => "img_100_#{f.id}") 
-            %img{:id => "img_100_#{f.id}", :src => f.image.thumb}
+            %a{:href => f.image.url, :rel => 'lightbox', :title => f.name}
+              %img{:id => "img_100_#{f.id}", :src => f.image.thumb}
 
       %br
       .comments{:id => "comments_#{f.id}"}

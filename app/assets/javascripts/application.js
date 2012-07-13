@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery_tmpl
+//= require lightbox
 //= require bootstrap
 //= require best_in_place
 //= require select2
