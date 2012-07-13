@@ -45,6 +45,17 @@
     %i.icon-share-alt
     Share
 
+%br
+%br
+
+.btn-group
+  %a.btn{href:'#'} Actions
+  %a.btn.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
+    %span.caret
+  %ul.dropdown-menu
+    %li
+      = link_to 'Update features from masters', '', :confirm => 'Are you sure? This will remove all your changes!'
+
 
 #add_comment_form.modal.hide.fade{:'data-project-id' => @project.id}
   .modal-header
