@@ -61,6 +61,9 @@ gem 'capistrano_colors'
 gem 'rvm-capistrano'
 gem 'thin'
 
+gem 'google-analytics-rails'
+gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
+
 gem 'rabl'
 gem 'mongoid-history'
 gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git'

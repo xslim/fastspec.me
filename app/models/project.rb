@@ -12,7 +12,8 @@ class Project
   accepts_nested_attributes_for :project_features
 
   include TeamHelper
-  scope :in_team, where(team_id: TeamHelper.current_team_id)
+  #scope :in_team, { where(team_id: TeamHelper.current_team_id) }
+  scope :in_team, ->(t) { where(team_id: t.id) }
   #default_scope where(team_id: TeamHelper.current_team_id)
   
   include Mongoid::History::Trackable

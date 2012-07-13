@@ -79,6 +79,7 @@ Fastspec::Application.configure do
     password: APP_CONFIG["GMAIL_PASSWORD"]
   }
 
-
+  # Google Analytics
+  GA.tracker = "UA-33374260-2"
 
 end

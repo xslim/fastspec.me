@@ -45,4 +45,8 @@ Fastspec::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Google Analytics
+  GA.tracker = "UA-33374260-2"
+  
 end
