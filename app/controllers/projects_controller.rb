@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!, :except => [:shared]
   respond_to :html, :json, :pdf
+  layout "preview", :only => [:shared]
   
   # GET /projects
   # GET /projects.json
@@ -43,6 +44,7 @@ class ProjectsController < ApplicationController
 
   def shared
     @project = Project.find_by_share_token(params[:token])
+    @team = (@project.team rescue nil)
 
     respond_to do |format|
       format.html # show.html.erb

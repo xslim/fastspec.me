@@ -1,3 +1,6 @@
+- content_for :logo do
+  = image_tag @team.image if @team.image?
+
 %h1.page-header= @project.name
 
 %table.table.table-striped

@@ -3,6 +3,13 @@
 
   .form-inputs
     = f.input :name
+
+    - if @team.image?
+      = f.input :image, :as => :file, :input_html => { :style => "display:none;" }, :hint => f.template.image_tag(@team.image.thumb)
+      = f.input :image
+      = f.input :remove_image, :as => :boolean
+    - else
+      = f.input :image
     
   .form-actions
     = f.button :submit

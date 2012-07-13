@@ -26,6 +26,10 @@ class Feature
   
   embeds_many :comments
 
+  def comments_count
+    self.comments.count
+  end
+
   include TeamHelper
   scope :in_team, where(team_id: TeamHelper.current_team_id)
   #default_scope where(team_id: TeamHelper.current_team_id)
