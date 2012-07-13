@@ -116,6 +116,23 @@ line-height: 36px;
     
 }
 
+h1, h2, h3, h4, h5, h6 {
+  small, small a {
+    font-weight: normal;
+    color: #999999;
+    i {
+      opacity: .8;
+    }
+  }
+}
+
+h1 small {
+  font-size: 18px;
+}
+h2 small {
+  font-size: 14px;
+}
+
 table tfoot tr td {
   font-weight: bold;
 }
