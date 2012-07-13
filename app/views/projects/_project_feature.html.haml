@@ -3,7 +3,10 @@
     %img{:id => "img#{f.id}", :src => f.image.small_thumb}
     = best_in_place f, :name, path: project_update_feature_path(@project, f), nil: 'Something'
   %td= best_in_place f, :estimate, path: project_update_feature_path(@project, f), nil: 0
-  %td
+  %td{:style => 'text-align: right'}
+    - if f.comments.count > 0
+      %i.icon-comment{:style => 'opacity:0.8'}
+      = f.comments.count
     %button.btn.btn-mini.btn-danger.remove_feature_btn{:'data-feature-id' => f.id}
       Remove
 
