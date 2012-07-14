@@ -66,4 +66,4 @@ gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 
 gem 'rabl'
 #gem 'mongoid-history'
-gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git'
+gem 'remotipart'#, :git => 'git://github.com/JangoSteve/remotipart.git'

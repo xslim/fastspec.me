@@ -1,3 +1,7 @@
+set :stages, %w(production staging)
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
+
 require 'bundler/capistrano'
 require 'capistrano_colors'
 load "deploy/assets"
@@ -19,11 +23,10 @@ set :application, "fastspec.me"
 set :repository,  "git@github.com:xslim/fastspec.me.git"
 
 set :scm, :git
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 
-role :web, "#{application}"                          # Your HTTP server, Apache/etc
-role :app, "#{application}"                          # This may be the same as your `Web` server
+
 #role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
@@ -31,12 +34,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 #default_run_options[:shell] = "/bin/bash"
 
-set :user, "deployer"
-set :use_sudo, false
-set :deploy_to, "/home/deployer/#{application}/dev"
-set :runner, user
 
-set :rails_env, "production"
 
 #set :gem_home, "/Users/slim/.rvm/gems/ruby-1.9.3-p194"
 
