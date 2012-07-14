@@ -1,7 +1,7 @@
 require File.expand_path("../../lib/logged_in_constraint", __FILE__)
 
 Fastspec::Application.routes.draw do
-  ActiveAdmin.routes(self)
+  #ActiveAdmin.routes(self)
 
 
   authenticated :user do

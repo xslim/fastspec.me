@@ -53,7 +53,7 @@ class User
 
   field :name, :type => String
 
-  index :email, :unique => true
+  #index :email, :unique => true
   
   validates_presence_of :name
   #attr_accessible :name, :email, :password, :password_confirmation, :remember_me

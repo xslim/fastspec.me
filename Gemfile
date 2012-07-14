@@ -30,10 +30,13 @@ end
 gem "rspec-rails", ">= 2.10.1", :group => [:development, :test]
 gem "factory_girl_rails", ">= 3.3.0", :group => [:development, :test]
 
+#gem 'activeadmin-mongoid'
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'rmagick'
 
-gem "bson_ext", ">= 1.6.4"
-gem "mongoid", ">= 2.4.11"
-gem "mongoid-simple-tags", "0.0.6"
+gem "mongoid"
+gem "mongoid-simple-tags", git: 'https://github.com/xslim/mongoid-simple-tags.git'
 gem 'select2-rails'
 gem 'mongoid_roles'
 
@@ -42,9 +45,6 @@ gem 'omniauth-facebook'
 gem 'fb_graph'
 gem 'rfc-822' # Email validation regexps
 
-gem 'activeadmin-mongoid'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-gem 'rmagick'
 
 gem "bootstrap-sass", ">= 2.0.3"
 gem "simple_form"
@@ -65,5 +65,5 @@ gem 'google-analytics-rails'
 gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 
 gem 'rabl'
-gem 'mongoid-history'
+#gem 'mongoid-history'
 gem 'remotipart', :git => 'git://github.com/JangoSteve/remotipart.git'
