@@ -81,5 +81,8 @@ Fastspec::Application.configure do
 
   # Google Analytics
   GA.tracker = "UA-33374260-2"
+  
+  Mongoid.logger.level = Logger::DEBUG
+  Moped.logger.level = Logger::DEBUG
 
 end

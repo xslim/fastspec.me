@@ -1,0 +1,50 @@
+%tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_{{f.id}}", :"data-row-feature-id" => "{{f.id}}"}
+  %td
+    %img{:id => "img{{f.id}}", :src => "{{f.image.small_thumb}}"}
+    -#= best_in_place "{{f}}", :name, path: "/projects/{{f.project_id}}/update/feature/{{f.id}}", nil: 'Something'
+    
+    %span.best_in_place{:id => "best_in_place_project_feature_{{f.id}}_name", "data-attribute" => "name", "data-nil" => "Enter feature name here", "data-object" => "project_feature", "data-type" => "input", "data-url" => "/projects/{{f.project_id}}/update/feature/{{f.id}}"}
+      {{f.name}}
+    
+  %td
+    %span.best_in_place{:id => "best_in_place_project_feature_{{f.id}}_estimate","data-attribute" => "estimate", "data-nil" => "0", "data-object" => "project_feature", "data-type" => "input", "data-url" => "/projects/{{f.project_id}}/update/feature/{{f.id}}"}
+      {{f.estimate}}
+    
+  %td{:style => 'text-align: right'}
+    {{#has_comments}}
+    %i.icon-comment{:style => 'opacity:0.8'}
+    {{f.comments_count}}  
+    {{/has_comments}}
+
+    %button.btn.btn-mini.btn-danger.remove_feature_btn{:'data-feature-id' => "{{f.id}}"}
+      Remove  
+
+%tr{:"data-row-feature-id" => "{{f.id}}"}
+  %td{:colspan => 3, :style => 'height: 0px; padding:0; margin: 0; border-top: 0;'}
+    %div.collapse{:id => "details_{{f.id}}"}   
+      .alert.alert-info
+        .row-fluid
+          .span10
+            %span.best_in_place{:id=> "best_in_place_project_feature_{{f.id}}_description", :"data-attribute" => "description", :"data-nil" => "Enter Description of this Task", :"data-object" => "project_feature", :"data-type" => "input", :"data-url" => "/projects/{{f.project_id}}/update/feature/{{f.id}}"} 
+              {{f.description}}
+          .span2
+            %a.lightbox{:href => "{{f.image.url}}", :title => "{{f.name}}"}
+              %img{:id => "img_100_{{f.id}}", :src => "{{f.image.thumb}}"}
+        
+      %br
+      .comments{:id => "comments_{{f.id}}"}
+        {{#f.comments}}
+        .alert.alert-info
+          {{comment}}
+          %br
+          %br
+          %span.label 
+            {{user_name}}, {{created_at}}   
+        {{/f.comments}}  
+        
+      .btn-group{:style => 'margin:5px;'}
+        %button.add_comment_btn.btn.btn-success.btn-mini{:'data-feature-id' => "{{f.id}}"}
+          Add comment
+        %button.add_image_btn.btn.btn-alert.btn-mini{:'data-feature-id' => "{{f.id}}"}
+          Attach image    
+   

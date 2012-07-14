@@ -35,7 +35,10 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'rmagick'
 
-gem "mongoid"
+gem "mongo", "~> 1.6.4"
+gem "bson", "~> 1.6.4"
+gem "bson_ext", "~> 1.6.4" 
+gem "mongoid", "~> 3.0.1"
 gem "mongoid-simple-tags", git: 'https://github.com/xslim/mongoid-simple-tags.git'
 gem 'select2-rails'
 gem 'mongoid_roles'
@@ -67,3 +70,11 @@ gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 gem 'rabl'
 #gem 'mongoid-history'
 gem 'remotipart'#, :git => 'git://github.com/JangoSteve/remotipart.git'
+#gem 'smt_rails'
+
+group :assets do
+  gem 'hogan_assets'
+  gem 'haml_assets'
+end
+
+

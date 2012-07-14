@@ -16,7 +16,6 @@ class Project
   scope :in_team, ->(t) { where(team_id: t.id) }
   #default_scope where(team_id: TeamHelper.current_team_id)
   
-  #include Mongoid::History::Trackable
 
   def self.find_by_share_token(token)
     self.first(conditions: { share_token: token} )
@@ -26,12 +25,5 @@ class Project
     self.project_features.sum(:estimate)
   end
   
-  # telling Mongoid::History how you want to track changes
-  # track_history   :on => [:name],       # track title and body fields only, default is :all
-  #             :modifier_field => :modifier, # adds "referenced_in :modifier" to track who made the change, default is :modifier
-  #             :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
-  #             :track_create   =>  true,    # track document creation, default is false
-  #             :track_update   =>  true,     # track document updates, default is true
-  #             :track_destroy  =>  true    # track document destruction, default is false
 
 end

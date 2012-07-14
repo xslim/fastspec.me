@@ -38,14 +38,16 @@ class Api::V1::FeaturesController < ::Api::ApiController
     
     if !@project.save
       @resp = {:json => {:error => 'Cannot save project'}, :status => :bad_request}
+      respond_to do |format|
+        format.json {render @resp}
+      end
     else
       @project.reload()
-      @resp = {:json => @project.project_features.find(project_feature.id), :status => :ok} 
+      #@resp = {:json => @project.project_features.find(project_feature.id), :status => :ok} 
+      @feature = @project.project_features.find(project_feature.id)
     end  
     
-    respond_to do |format|
-      format.json {render @resp}
-    end  
+     
     
     #@feature = project_feature
     

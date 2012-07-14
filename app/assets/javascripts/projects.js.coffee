@@ -192,7 +192,13 @@ class ProjectManager
       '<button class="add_image_btn btn btn-alert btn-mini" data-feature-id="${_id}">Attach image</button>'  
       '</div></div></td></tr>' 
 
-    renderedFeature = $.tmpl('featureRow', feature)
+    if feature.comments != `undefined` and feature.comments.length > 0
+      feature.has_comment = true
+    
+    feature.id = feature._id  
+    data = {f: feature}
+    console.log "Data: ", data
+    renderedFeature = HoganTemplates['templates/project_feature'].render(data) #$.tmpl('featureRow', feature)
     
     $('#featureListTable tr:last').before(renderedFeature)
     

@@ -14,9 +14,13 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery_tmpl
+//= require hogan.js
 //= require fancybox
 //= require bootstrap
 //= require best_in_place
 //= require select2
 //= require features
 //= require projects
+//= require_tree ./templates
+
+
