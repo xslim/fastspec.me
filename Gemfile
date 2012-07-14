@@ -11,9 +11,10 @@ end
 
 gem 'jquery-rails'
 gem "haml", ">= 3.1.6"
+gem "haml-rails", ">= 0.3.4"
 
 group :development do
-  gem "haml-rails", ">= 0.3.4"
+  
   #gem 'hpricot'
   #gem 'ruby_parser'
 end
@@ -70,8 +71,9 @@ gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 gem 'rabl'
 #gem 'mongoid-history'
 gem 'remotipart'#, :git => 'git://github.com/JangoSteve/remotipart.git'
-#gem 'smt_rails'
 
+#gem 'smt_rails'
+gem "mustache"
 group :assets do
   gem 'hogan_assets'
   gem 'haml_assets'

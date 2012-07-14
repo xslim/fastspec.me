@@ -198,7 +198,7 @@ class ProjectManager
     feature.id = feature._id  
     data = {f: feature}
     console.log "Data: ", data
-    renderedFeature = HoganTemplates['templates/project_feature'].render(data) #$.tmpl('featureRow', feature)
+    renderedFeature = HoganTemplates['templates/project_feature'].render(feature) #$.tmpl('featureRow', feature)
     
     $('#featureListTable tr:last').before(renderedFeature)
     

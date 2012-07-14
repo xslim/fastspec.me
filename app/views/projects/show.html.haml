@@ -11,7 +11,8 @@
     %th Estimate, hours
     %th
 
-  %tr= render partial: 'project_feature', collection: @project.project_features, as: :f    
+  -#%tr= render partial: 'project_feature', collection: @project.project_features, as: :f    
+  %tr= render :partial => 'shared/templates/project_feature', :handler => :haml, :collection => @project.project_features
   %tr
     %td{:colspan => 2}
     %td
