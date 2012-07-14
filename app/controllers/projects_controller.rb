@@ -158,9 +158,8 @@ class ProjectsController < ApplicationController
     if feature.nil?
       redirect_to @project, alert: 'Feature was not found.' and return
     end
-    
-    puts feature.inspect
-    puts @project.project_features.inspect
+      
+    # TODO: Delete image also
     
     if @project.project_features.where(:_id => feature.id.to_s).delete_all
       #@project.reload
@@ -191,9 +190,14 @@ class ProjectsController < ApplicationController
     @project.project_features.each do |f|
       original_feature = (Feature.find(f.original_id) rescue nil)
       if original_feature
+        feature_image = original_feature.image
         attributes = f.attributes_from_feature(original_feature)
-        puts "---> attributes: #{attributes.inspect}"
+        #puts "---> attributes: #{attributes.inspect}"
         f.attributes = attributes
+
+        f.image.store! feature_image.file if feature_image
+        f.save!
+
         @project.save
       end
     end
