@@ -74,9 +74,9 @@ gem 'remotipart'#, :git => 'git://github.com/JangoSteve/remotipart.git'
 
 #gem 'smt_rails'
 gem "mustache"
-group :assets do
-  gem 'hogan_assets'
-  gem 'haml_assets'
-end
+
+gem 'hogan_assets'
+gem 'haml_assets'
+
 
 
