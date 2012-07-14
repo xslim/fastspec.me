@@ -67,6 +67,16 @@ test:
       options:
         consistency: :strong
 
+staging:
+  sessions:
+    default:
+      database: fastspec_staging
+      hosts:
+        - localhost:19820
+      options:
+        consistency: :strong
+        
+
 production:
   sessions:
     default:

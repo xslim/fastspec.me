@@ -6,6 +6,8 @@ require 'bundler/capistrano'
 require 'capistrano_colors'
 load "deploy/assets"
 
+set :application, "fastspec.me"
+
 # Add RVM's lib directory to the load path.
 #$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 
@@ -19,12 +21,14 @@ set :rvm_type, :system  # Don't use system-wide RVM
 #set :bundle_dir,          fetch(:shared_path)+"/bundle"
 #set :bundle_dir,          "#{rvm_path}/gems/#{rvm_ruby_string}"
 
-set :application, "fastspec.me"
+
+
 set :repository,  "git@github.com:xslim/fastspec.me.git"
 
 set :scm, :git
-#set :deploy_via, :remote_cache
-set :git_shallow_clone, 1
+set :deploy_via, :export
+set :git_enable_submodules, 1
+#set :git_shallow_clone, 1
 
 
 #role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
@@ -63,7 +67,7 @@ namespace :local do
     system "ssh-add"
   end
   desc "Copy local secret config to remote"
-  task :copy_config, :hosts => "#{application}" do
+  task :copy_config, :hosts => "spec.theappfellas.com" do
     filename = "config.yml"
     upload "config/#{filename}", "#{current_release}/config/#{filename}"
   end
