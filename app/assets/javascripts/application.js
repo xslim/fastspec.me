@@ -16,6 +16,7 @@
 //= require jquery_tmpl
 //= require hogan.js
 //= require fancybox
+//= require gritter
 //= require bootstrap
 //= require best_in_place
 //= require select2

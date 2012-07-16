@@ -20,9 +20,14 @@ class ProjectsController < ApplicationController
     #puts "--> #{Project.in_team.inspect}"
     @project = Project.in_team(current_team).find(params[:id])
     
+    out_project = @project
+    out_project.project_features.each_with_index { |pf, index|
+      out_project.project_features[index].project_id = @project.id.to_s
+    }
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @project }
+      format.json { render json: out_project }
       format.pdf
     end
   end

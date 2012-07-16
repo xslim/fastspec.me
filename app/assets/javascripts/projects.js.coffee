@@ -31,27 +31,40 @@ class ProjectManager
     
     $(document.body).bind 'FS::FeatureListUpdated', @onListUpdated
     
+    $(document.body).bind 'FS::FeatureListLoaded', @onListLoaded
+    
     $(document.body).bind 'FS::AddFeatureToProject', @onAddFeatureToProject
+    
+    $(document.body).bind 'FS::EstimateUpdated', @updateEstimateTotal
     
     @bindBestInPlace()
   
   
   bindBestInPlace: =>
     $(".best_in_place").off "ajax:success"
-    $(".best_in_place").bind "ajax:success", () =>
-       console.log "Success on in-place update"
-       $(document.body).trigger 'FS::FeatureListUpdated'  
+    $(".best_in_place").bind "ajax:success", (e) =>
+      
+      if e.currentTarget.id.match(/estimate/)
+        $(document.body).trigger "FS::EstimateUpdated", [e, true]
+      console.log "Success on in-place update", e
+      #$(document.body).trigger 'FS::FeatureListUpdated', [e]
   #
   #
   #  
   start: ->
     console.log "Start ProjectManager"
     
+    $(document.body).trigger 'FS::FeatureListLoaded'
+    
+  
+  onListLoaded: (e) =>
+    console.log "On List Loaded"
+    $(document.body).trigger "FS::EstimateUpdated", [e, false]
     
   
   onListUpdated: =>
     console.log "On List Updated"
-    @updateEstimateTotal()    
+    
   
   onAddProject: (e) =>
     console.log "On Add Project"
@@ -78,7 +91,8 @@ class ProjectManager
         $('#accordion2').css 'height', '100%'
         
         @features = features
-        @updateEstimateTotal()
+        
+        #@updateEstimateTotal()
         
       ), (error) =>
         console.log "Error loading features:", error
@@ -163,6 +177,7 @@ class ProjectManager
       success: (data) =>
         console.log 'Added feature', data
         @addFeatureRow(data)
+        
             
       error: (error) =>
         console.log error
@@ -170,34 +185,34 @@ class ProjectManager
   
   addFeatureRow: (feature) =>
     feature.project_id = @projectId
-    $.template "featureRow",  "<tr data-target='#details_${_id}' data-toggle='collapse' data-row-feature-id='${_id}'><td>" +
-      '<span class="best_in_place" id="best_in_place_project_feature_${_id}_name" ' +
-        'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" data-attribute="name" '+
-        'data-nil="Enter feature name" data-type="input">${name}</span>' +
-      '</td>' +
-      '<td><span class="best_in_place" id="best_in_place_project_feature_${_id}_estimate" ' +
-        'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
-        'data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
-      '<td><button class="btn btn-mini btn-danger remove_feature_btn" data-feature-id="${_id}">Remove</button></td>'+
-      '</tr>' +
-      '<tr data-row-feature-id="${_id}"><td colspan="3" style="height: 0px; padding:0; margin: 0; border-top: 0;">' +
-      '<div class="collapse in" id="details_${_id}" style="height: auto; ">' +
-      '<div class="alert alert-info">' +
-      '<span class="best_in_place" id="best_in_place_project_feature_${_id}_description" '+
-        'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
-        'data-attribute="description" data-nil="Enter Description of this Task" data-type="input">${description}</span></div>' +
-      '<br><div class="comments" id="comments_${_id}"></div>' +
-      '<div class="btn-group" style="margin:5px">' +
-      '<button class="add_comment_btn btn btn-success btn-mini" data-feature-id="${_id}">Add comment</button>' +
-      '<button class="add_image_btn btn btn-alert btn-mini" data-feature-id="${_id}">Attach image</button>'  
-      '</div></div></td></tr>' 
+    # $.template "featureRow",  "<tr data-target='#details_${_id}' data-toggle='collapse' data-row-feature-id='${_id}'><td>" +
+    #       '<span class="best_in_place" id="best_in_place_project_feature_${_id}_name" ' +
+    #         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" data-attribute="name" '+
+    #         'data-nil="Enter feature name" data-type="input">${name}</span>' +
+    #       '</td>' +
+    #       '<td><span class="best_in_place" id="best_in_place_project_feature_${_id}_estimate" ' +
+    #         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
+    #         'data-attribute="estimate" data-nil="0" data-type="input">${estimate}</span></td>' +
+    #       '<td><button class="btn btn-mini btn-danger remove_feature_btn" data-feature-id="${_id}">Remove</button></td>'+
+    #       '</tr>' +
+    #       '<tr data-row-feature-id="${_id}"><td colspan="3" style="height: 0px; padding:0; margin: 0; border-top: 0;">' +
+    #       '<div class="collapse in" id="details_${_id}" style="height: auto; ">' +
+    #       '<div class="alert alert-info">' +
+    #       '<span class="best_in_place" id="best_in_place_project_feature_${_id}_description" '+
+    #         'data-url="/projects/${project_id}/update/feature/${_id}" data-object="project_feature" '+
+    #         'data-attribute="description" data-nil="Enter Description of this Task" data-type="input">${description}</span></div>' +
+    #       '<br><div class="comments" id="comments_${_id}"></div>' +
+    #       '<div class="btn-group" style="margin:5px">' +
+    #       '<button class="add_comment_btn btn btn-success btn-mini" data-feature-id="${_id}">Add comment</button>' +
+    #       '<button class="add_image_btn btn btn-alert btn-mini" data-feature-id="${_id}">Attach image</button>'  
+    #       '</div></div></td></tr>' 
 
     if feature.comments != `undefined` and feature.comments.length > 0
       feature.has_comment = true
     
-    feature.id = feature._id  
-    data = {f: feature}
-    console.log "Data: ", data
+    #feature.id = feature._id  
+    #data = {f: feature}
+    #console.log "Data: ", data
     renderedFeature = HoganTemplates['templates/project_feature'].render(feature) #$.tmpl('featureRow', feature)
     
     $('#featureListTable tr:last').before(renderedFeature)
@@ -218,7 +233,9 @@ class ProjectManager
     
     @bindBestInPlace()
     
-  updateEstimateTotal: =>
+    $(document.body).trigger "FS::EstimateUpdated", [null, true]
+    
+  updateEstimateTotal: (e, origEvent, showPopup) =>
     
     elements = $('span[data-attribute="estimate"]')
     value = 0
@@ -226,6 +243,16 @@ class ProjectManager
       value = value + parseInt(element.innerHTML)
     console.log "Update estimate to #{value} hours"
     $('#estimate_total').text(value)
+    
+    
+    if showPopup is true
+      $.gritter.add
+        title: "Estimate updated"
+        text: "The total estimate has been updated to #{value} hours" 
+        image: "http://www.veryicon.com/icon/png/System/Mini/update.png"
+        sticky: false
+        time: ""
+    
     
   onAddComment: (e) =>
     btn = $(e.currentTarget)
@@ -266,9 +293,10 @@ class ProjectManager
         comment: field.val()
       success: (data) =>
         console.log data
-        $.template "commentRow", '<div class="alert alert-info">${comment}<br>by ${user_name} at ${created_at}</div>'
-        
-        $.tmpl('commentRow', data).appendTo(cWrapper)
+        #$.template "commentRow", '<div class="alert alert-info">${comment}<br>by ${user_name} at ${created_at}</div>'
+        comment = HoganTemplates['templates/comment'].render(data)
+        cWrapper.append(comment)
+        #$.tmpl('commentRow', data).appendTo(cWrapper)
         
       error: (error) =>
         console.log error 
@@ -291,7 +319,7 @@ class ProjectManager
           rows = $("tr[data-row-feature-id=#{fid}]")
           console.log rows
           rows.remove()
-          
+          $(document.body).trigger "FS::EstimateUpdated", [e, true]
           $(document.body).trigger 'FS::FeatureListUpdated'
         
       error: (xhr, error, text) =>

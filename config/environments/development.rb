@@ -48,5 +48,5 @@ Fastspec::Application.configure do
 
   # Google Analytics
   GA.tracker = "UA-33374260-2"
-  
+
 end

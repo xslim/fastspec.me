@@ -1,0 +1,986 @@
+<!DOCTYPE HTML SYSTEM>
+<html>
+<head>
+<title>Brakeman Report</title>
+  <script>
+    function toggle(context) {
+      var elem = document.getElementById(context);
+
+      if (elem.style.display != "block")
+        elem.style.display = "block";
+      else
+        elem.style.display = "none";
+        
+      elem.parentNode.scrollIntoView();
+    }
+  </script>
+  <style>
+    /* CSS style used for HTML reports */
+
+body {
+  font-family: sans-serif;
+  color: #161616;
+}
+
+p {
+  font-weight: bold;
+  font-size: 11pt;
+  color: #2D0200;
+ }
+
+ th {
+   background-color: #980905;
+   border-bottom: 5px solid #530200;
+   color: white;
+   font-size: 11pt;
+   padding: 1px 8px 1px 8px;
+ }
+
+ td {
+   border-bottom: 2px solid white;
+   font-family: monospace;
+   padding: 5px 8px 1px 8px;
+ }
+
+ table {
+   background-color: #FCF4D4;
+   border-collapse: collapse;
+ }
+
+ h1 {
+   color: #2D0200;
+   font-size: 14pt;
+ }
+
+ h2 {
+   color: #2D0200;
+   font-size: 12pt;
+ }
+
+ span.high-confidence {
+   font-weight:bold;
+   color: red;
+ }
+
+ span.med-confidence {
+ }
+
+ span.weak-confidence {
+   color:gray;
+ }
+
+ div.warning_message {
+   cursor: pointer;
+ }
+
+ div.warning_message:hover {
+   background-color: white;
+ }
+
+ table caption {
+   background-color: #FFE;
+   padding: 2px;
+ }
+
+ table.context {
+   margin-top: 5px;
+   margin-bottom: 5px;
+   border-left: 1px solid #90e960;
+   color: #212121;
+ }
+
+ tr.context {
+   background-color: white;
+ }
+
+ tr.first {
+   border-top: 1px solid #7ecc54;
+   padding-top: 2px;
+ }
+
+ tr.error {
+  background-color: #f4c1c1 !important
+ }
+
+ tr.near_error {
+  background-color: #f4d4d4 !important
+ }
+
+ tr.alt {
+   background-color: #e8f4d4;
+ }
+
+ td.context {
+   padding: 2px 10px 0px 6px;
+   border-bottom: none;
+ }
+
+ td.context_line {
+   padding: 2px 8px 0px 7px;
+   border-right: 1px solid #b3bda4;
+   border-bottom: none;
+   color: #6e7465;
+ }
+
+ pre.context {
+   margin-bottom: 1px;
+ }
+
+ .user_input {
+   background-color: #fcecab;
+ }
+
+  </style>
+</head>
+<body>
+
+<h1>Brakeman Report</h1>
+<table>
+  <tr>
+    <th>Application Path</th>
+    <th>Rails Version</th>
+    <th>Report Generation Time</th>
+    <th>Checks Performed</th>
+  </tr>
+  <tr>
+    <td>/Users/mikebevz/Documents/jworkspace/fastspec</td>
+    <td>3.2.6</td>
+    <td>2012-07-16 00:21:54 +0200</td>
+    <td>BasicAuth, CrossSiteScripting, DefaultRoutes, EscapeFunction, Evaluation, Execute, FileAccess, FilterSkipping, ForgerySetting, LinkTo, LinkToHref, MailTo, MassAssignment, ModelAttributes, NestedAttributes, QuoteTableName, Redirect, Render, ResponseSplitting, SQL, SafeBufferManipulation, SelectVulnerability, Send, SendFile, SessionSettings, SkipBeforeFilter, StripTags, TranslateBug, ValidationRegex, WithoutProtection</td>
+  </tr>
+</table>
+<br>
+<h2 id='summary'>Summary</h2> 
+<table>
+  <tr>
+    <th>Scanned/Reported</th>
+    <th>Total</th>
+  </tr>
+  <tr>
+    <td>Controllers</td>
+    <td>11</td>
+  </tr>
+  <tr>
+    <td>Models</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>Templates</td>
+    <td>38</td>
+  </tr>
+  <tr>
+    <td>Errors</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>Security Warnings</td>
+    <td>11 <span class='high-confidence'>(8)</span></td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <th>Warning Type</th>
+    <th>Total</th>
+  </tr>
+  
+  <tr>
+    <td>Cross Site Scripting</td>
+    <td>2</td>
+  </tr>
+  
+  <tr>
+    <td>Redirect</td>
+    <td>9</td>
+  </tr>
+  
+</table>
+<br>
+<h2>Security Warnings</h2>  
+<table>
+
+  <tr>
+    <th>Confidence</th>
+    <th>Class</th>
+    <th>Method</th>
+    <th>Warning Type</th>
+    <th>Message</th>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>update</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context2');toggle('message2');toggle('full_message2')" ><span id='message2' style='display:block' >Possible unprotected redirect near line 99: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id...</span><span id='full_message2' style='display:none'>Possible unprotected redirect near line 99: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :notice =&gt; &quot;Project was successfully updated.&quot;)</span><table id='context2' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>94</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>  def update</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>95</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    @project = Project.in_team(current_team).find(params[:id])</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>97</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    respond_to do |format|</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>98</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      if @project.update_attributes(params[:project])</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>99</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.html { redirect_to @project, notice: 'Project was successfully updated.' }</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>100</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.json { respond_with_bip @project }</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>101</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      else</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>102</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.html { render action: &quot;edit&quot; }</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>103</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.json { render json: @project.errors, status: :unprocessable_entity }</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>104</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      end</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>add_feature</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context3');toggle('message3');toggle('full_message3')" ><span id='message3' style='display:block' >Possible unprotected redirect near line 127: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message3' style='display:none'>Possible unprotected redirect near line 127: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :alert =&gt; &quot;Feature was not found.&quot;)</span><table id='context3' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>122</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>    @project = Project.in_team(current_team).find(params[:id])</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>124</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    feature = (Feature.find(params[:feature_id]) rescue nil)</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>126</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    if feature.nil?</pre>
+            </td>
+          </tr>
+          <tr class='context alt error'>
+            <td class='context_line'>
+              <pre class='context'>127</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, alert: 'Feature was not found.' and return</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>128</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>130</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    feature_image = feature.image</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>132</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    #@project.project_features = nil</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>add_feature</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context4');toggle('message4');toggle('full_message4')" ><span id='message4' style='display:block' >Possible unprotected redirect near line 143: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message4' style='display:none'>Possible unprotected redirect near line 143: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :notice =&gt; &quot;Feature was was added.&quot;)</span><table id='context4' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>138</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>      project_feature.image.store! feature_image.file if feature_image</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>139</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      project_feature.save!</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>141</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      @project.save</pre>
+            </td>
+          </tr>
+          <tr class='context alt error'>
+            <td class='context_line'>
+              <pre class='context'>143</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, notice: 'Feature was was added.'</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>144</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    else</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>145</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, alert: 'Problem adding Feature.'</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>146</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>147</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  end</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>add_feature</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context5');toggle('message5');toggle('full_message5')" ><span id='message5' style='display:block' >Possible unprotected redirect near line 145: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message5' style='display:none'>Possible unprotected redirect near line 145: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :alert =&gt; &quot;Problem adding Feature.&quot;)</span><table id='context5' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>141</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>      @project.save</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>143</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, notice: 'Feature was was added.'</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>144</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    else</pre>
+            </td>
+          </tr>
+          <tr class='context alt error'>
+            <td class='context_line'>
+              <pre class='context'>145</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, alert: 'Problem adding Feature.'</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>146</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>147</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  end</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>149</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  def delete_feature</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>150</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    @project = Project.in_team(current_team).find(params[:id])</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>delete_feature</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context6');toggle('message6');toggle('full_message6')" ><span id='message6' style='display:block' >Possible unprotected redirect near line 154: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message6' style='display:none'>Possible unprotected redirect near line 154: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :alert =&gt; &quot;Feature was not found.&quot;)</span><table id='context6' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>149</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>  def delete_feature</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>150</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    @project = Project.in_team(current_team).find(params[:id])</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>151</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    feature = (@project.project_features.find(params[:feature_id]) rescue nil)</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>153</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    if feature.nil?</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>154</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, alert: 'Feature was not found.' and return</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>155</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>157</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    puts feature.inspect</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>158</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    puts @project.project_features.inspect</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>delete_feature</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context7');toggle('message7');toggle('full_message7')" ><span id='message7' style='display:block' >Possible unprotected redirect near line 162: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message7' style='display:none'>Possible unprotected redirect near line 162: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :notice =&gt; &quot;Feature was deleted.&quot;)</span><table id='context7' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>157</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>    puts feature.inspect</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>158</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    puts @project.project_features.inspect</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>160</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    if @project.project_features.where(:_id =&gt; feature.id.to_s).delete_all</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>161</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      #@project.reload</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>162</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, notice: 'Feature was deleted.'</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>163</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    else</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>164</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, alert: 'Problem removing Feature.'</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>165</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>167</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  end</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>delete_feature</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context8');toggle('message8');toggle('full_message8')" ><span id='message8' style='display:block' >Possible unprotected redirect near line 164: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message8' style='display:none'>Possible unprotected redirect near line 164: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :alert =&gt; &quot;Problem removing Feature.&quot;)</span><table id='context8' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>160</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>    if @project.project_features.where(:_id =&gt; feature.id.to_s).delete_all</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>161</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      #@project.reload</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>162</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, notice: 'Feature was deleted.'</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>163</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    else</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>164</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      redirect_to @project, alert: 'Problem removing Feature.'</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>165</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>167</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  end</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>169</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  def update_feature</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='high-confidence'>High</span></td>
+    <td>ProjectsController</td>
+    <td>update_features</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context9');toggle('message9');toggle('full_message9')" ><span id='message9' style='display:block' >Possible unprotected redirect near line 196: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:i...</span><span id='full_message9' style='display:none'>Possible unprotected redirect near line 196: redirect_to(<span class="user_input">Project.in_team(current_team)</span>.find(params[:id]), :alert =&gt; &quot;Features were updated!&quot;)</span><table id='context9' class='context' style='display:none'><caption>/app/controllers/projects_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>191</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>        f.attributes = attributes</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>192</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        @project.save</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>193</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      end</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>194</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    end</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>196</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    redirect_to @project, alert: 'Features were updated!' and return</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>197</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  end</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>199</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>end</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+  <tr>
+    <td><span class='weak-confidence'>Weak</span></td>
+    <td>FeaturesController</td>
+    <td>update</td>
+    <td>Redirect</td>
+    <td><div class='warning_message' onClick="toggle('context1');toggle('message1');toggle('full_message1')" ><span id='message1' style='display:block' >Possible unprotected redirect near line 68: redirect_to(current_team.features.find(<span class="user_input">params[:id]</span>), :not...</span><span id='full_message1' style='display:none'>Possible unprotected redirect near line 68: redirect_to(current_team.features.find(<span class="user_input">params[:id]</span>), :notice =&gt; &quot;Feature was successfully updated.&quot;)</span><table id='context1' class='context' style='display:none'><caption>/app/controllers/features_controller.rb</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>63</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>  def update</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>64</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    @feature = current_team.features.find(params[:id]) #Feature.in_team.find(params[:id])</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>66</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    respond_to do |format|</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>67</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      if @feature.update_attributes(params[:feature])</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>68</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.html { redirect_to @feature, notice: 'Feature was successfully updated.' }</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>69</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.json { head :no_content }</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>70</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      else</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>71</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.html { render action: &quot;edit&quot; }</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>72</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>        format.json { render json: @feature.errors, status: :unprocessable_entity }</pre>
+            </td>
+          </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>73</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      end</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+  
+
+</table><p>View Warnings</p>
+<table>
+  <tr>
+    <th>Confidence</th>
+    <th>Template</th>
+    <th>Warning Type</th>
+    <th>Message</th>
+  </tr>
+
+  <tr>
+    <td><span class='med-confidence'>Medium</span></td>
+    <td>features/_form (Template:features/edit)</td>
+    <td>Cross Site Scripting</td>
+    <td><div class='warning_message' onClick="toggle('context10');toggle('message10');toggle('full_message10')" ><span id='message10' style='display:block' >Unsafe parameter value in link_to href near line 20: link_to(&quot;Destroy&quot;, current_team.features.find(pa...</span><span id='full_message10' style='display:none'>Unsafe parameter value in link_to href near line 20: link_to(&quot;Destroy&quot;, current_team.features.find(<span class="user_input">params</span>[:id]), :data =&gt; ({ :confirm =&gt; &quot;Are you sure?&quot; }), :method =&gt; :delete, :class =&gt; &quot;btn btn-danger&quot;)</span><table id='context10' class='context' style='display:none'><caption>/app/views/features/_form.html.haml</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>15</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>      = f.input :image</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>17</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>  .form-actions</pre>
+            </td>
+          </tr>
+          <tr class='context'>
+            <td class='context_line'>
+              <pre class='context'>18</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    = f.button :submit</pre>
+            </td>
+          </tr>
+          <tr class='context alt near_error'>
+            <td class='context_line'>
+              <pre class='context'>19</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>    - if @feature.persisted?</pre>
+            </td>
+          </tr>
+          <tr class='context error'>
+            <td class='context_line'>
+              <pre class='context'>20</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>      = link_to 'Destroy', @feature, data: {confirm: 'Are you sure?'}, :method =&gt; :delete, class: 'btn btn-danger'</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+
+  <tr>
+    <td><span class='med-confidence'>Medium</span></td>
+    <td>features/edit (FeaturesController#edit)</td>
+    <td>Cross Site Scripting</td>
+    <td><div class='warning_message' onClick="toggle('context11');toggle('message11');toggle('full_message11')" ><span id='message11' style='display:block' >Unsafe parameter value in link_to href near line 6: link_to(&quot;Show&quot;, current_team.features.find(<span class="user_input">params</span>...</span><span id='full_message11' style='display:none'>Unsafe parameter value in link_to href near line 6: link_to(&quot;Show&quot;, current_team.features.find(<span class="user_input">params</span>[:id]))</span><table id='context11' class='context' style='display:none'><caption>/app/views/features/edit.html.haml</caption>        <tr class='context first'>
+          <td class='context_line'>
+            <pre class='context'>1</pre>
+          </td>
+          <td class='context'>
+            <pre class='context'>%h1 Editing feature</pre>
+          </td>
+        </tr>
+          <tr class='context alt'>
+            <td class='context_line'>
+              <pre class='context'>3</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>= render 'form'</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>5</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>= link_to 'Show', @feature</pre>
+            </td>
+          </tr>
+          <tr class='context alt error'>
+            <td class='context_line'>
+              <pre class='context'>6</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>\|</pre>
+            </td>
+          </tr>
+          <tr class='context near_error'>
+            <td class='context_line'>
+              <pre class='context'>7</pre>
+            </td>
+            <td class='context'>
+              <pre class='context'>= link_to 'Back', features_path</pre>
+            </td>
+          </tr>
+</table></div></td>
+  </tr>
+
+</table></body></html>

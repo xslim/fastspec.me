@@ -78,5 +78,6 @@ gem "mustache"
 gem 'hogan_assets'
 gem 'haml_assets'
 gem 'brakeman', group: :development
+gem "gritter", "~> 1.0.1"
 
 
