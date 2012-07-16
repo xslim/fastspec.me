@@ -65,7 +65,7 @@ class User
   #default_scope where(:team_ids.in => [TeamHelper.current_team_id])
 
   def self.find_by_email(email)
-    self.first(conditions: { email: email} )
+    self.find_by(email: email)
   end
 
 end

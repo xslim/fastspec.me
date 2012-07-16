@@ -18,7 +18,7 @@ class Project
   
 
   def self.find_by_share_token(token)
-    self.first(conditions: { share_token: token} )
+    self.find_by(share_token: token)
   end
 
   def total_estimate
