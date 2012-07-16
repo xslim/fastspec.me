@@ -2,6 +2,8 @@ class ProjectFeature < Feature
   
   field :original_id, :type => String
   field :project_id, :type => String # If of the parent project
+  field :index, :type => Integer, :default => 0
+
   embedded_in :project, :inverse_of => :project_features
   
   mount_uploader :image, ImageUploader            

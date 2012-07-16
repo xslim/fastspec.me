@@ -1,29 +1,32 @@
 -#- content_for :logo do
 -#  = image_tag @team.image if @team.image?
 
-.row
-  .span8{style:'height:100%; vertical-align:bottom;'}
+.row-fluid
+  .span8
     %h1.page-header= @project.name
   .span4
-    = image_tag @team.image if @team.image?
+    = image_tag @team.image, height: '100' if @team.image?
 
 %table.table.table-striped
   %thead
     %tr
+      %th #
       %th Feature
       %th Estimate, hours
 
   %tbody
     - total = 0
-    - @project.project_features.each do |f|
+    - @features.each do |f|
       - total += f.estimate
       %tr
+        %td= (f.index + 1 rescue '')
         %td
           = image_tag(f.image.small_thumb) if f.image?
           = f.name
         %td= f.estimate
   %tfoot
     %tr
+      %td
       %td Total, hours:
       %td= total
           

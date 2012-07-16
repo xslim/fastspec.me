@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+  class ProjectsController < ApplicationController
   before_filter :authenticate_user!, :except => [:shared]
   respond_to :html, :json, :pdf
   layout "preview", :only => [:shared]
@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
     @project = Project.in_team(current_team).find(params[:id])
     
     out_project = @project
-    out_project.project_features.each_with_index { |pf, index|
+    out_project.project_features.asc(:index).each_with_index { |pf, index|
       out_project.project_features[index][:project_id] = @project.id.to_s
     }
     
@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
 
   def shared
     @project = Project.find_by_share_token(params[:token])
+    @features = @project.project_features.asc(:index)
     @team = (@project.team rescue nil)
 
     respond_to do |format|
@@ -137,6 +138,7 @@ class ProjectsController < ApplicationController
     #@project.project_features = nil
 
     project_feature = ProjectFeature.new_from_feature(feature)
+    project_feature.index = @project.project_features.count
 
     if @project.project_features << project_feature
 
@@ -187,18 +189,21 @@ class ProjectsController < ApplicationController
   def update_features
     @project = Project.in_team(current_team).find(params[:id])
 
-    @project.project_features.each do |f|
+    index = 0
+    @project.project_features.asc(:index).each do |f|
       original_feature = (Feature.find(f.original_id) rescue nil)
       if original_feature
         feature_image = original_feature.image
         attributes = f.attributes_from_feature(original_feature)
         #puts "---> attributes: #{attributes.inspect}"
         f.attributes = attributes
+        f.index = index
 
         f.image.store! feature_image.file if feature_image
         f.save!
 
         @project.save
+        index += 1
       end
     end
 

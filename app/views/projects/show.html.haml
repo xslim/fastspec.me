@@ -51,12 +51,9 @@
   %b Shared:
   - shared_url = shared_project_url(@project.share_token)
   = link_to(shared_url, shared_url)
-  = link_to(unshare_project_path(@project)) do
-    %i.icon-remove
+  = icon_hint_link_to 'remove', 'Un-share Project', unshare_project_path(@project)
 - else
-  = link_to(share_project_path(@project)) do
-    %i.icon-share-alt
-    Share
+  = icon_link_to 'share-alt', 'Share', share_project_path(@project)
 
 %br
 %br

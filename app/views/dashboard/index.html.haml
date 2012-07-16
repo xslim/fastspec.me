@@ -7,10 +7,7 @@
   .span6
     %h2<
       Projects
-      %small
-        = link_to new_project_path do
-          %i.icon-plus
-          add
+      %small= icon_link_to 'plus', 'add', new_project_path
 
     %table.table.table-striped
       - @projects.each do |project|
@@ -21,10 +18,7 @@
   .span6
     %h2<
       Latest Features
-      %small
-        = link_to new_feature_path do
-          %i.icon-plus
-          add
+      %small= icon_link_to 'plus', 'add', new_feature_path
 
     %table.table.table-striped
       - @team.features.limit(20).each do |feature|

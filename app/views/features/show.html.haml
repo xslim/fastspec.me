@@ -1,14 +1,13 @@
-%h1
-  Feature
-  %em= @feature.name
 .row
   .span6
-    = image_tag @feature.image if @feature.image?
-  .span6
+    %h1
+      = @feature.name
+      %small #{@feature.estimate}h
+
     %p= @feature.description
+  .span6
+    = image_tag @feature.image.thumb if @feature.image?
 
 
-
-
-= link_to 'Edit', edit_feature_path(@feature)
+= icon_link_to 'pencil', 'Edit', edit_feature_path(@feature)
 

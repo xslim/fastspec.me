@@ -29,7 +29,7 @@
             %td
               = gravatar_image_tag(invite.email, gravatar: {size: 20})
               = invite.email
-            %td= icon_link_to 'repeat', 'Re-send invintation', resend_invite_path(invite.token)
+            %td= icon_hint_link_to 'repeat', 'Re-send invintation', resend_invite_path(invite.token)
 
   .span6
 
