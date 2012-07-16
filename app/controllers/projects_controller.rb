@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
   end
 
   def shared
-    @project = Project.in_team(current_team).find_by_share_token(params[:token])
+    @project = Project.find_by_share_token(params[:token])
     @team = (@project.team rescue nil)
 
     respond_to do |format|
