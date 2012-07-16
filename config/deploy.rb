@@ -67,7 +67,7 @@ namespace :local do
     system "ssh-add"
   end
   desc "Copy local secret config to remote"
-  task :copy_config, :hosts => "spec.theappfellas.com" do
+  task :copy_config, :hosts => "#{application}" do
     filename = "config.yml"
     upload "config/#{filename}", "#{current_release}/config/#{filename}"
   end
@@ -161,9 +161,9 @@ namespace :uploads do
     [internal] Creates the symlink to uploads shared folder
     for the most recently deployed version.
   EOD
-  task :symlink, :except => { :no_release => true } do
-    run "rm -rf #{release_path}/public/uploads"
-    run "ln -nfs #{shared_path}/#{stage}/uploads #{release_path}/public/uploads"
+  task :symlink, :roles => :app, :except => { :no_release => true } do
+    run "rm -rf #{current_release}/public/uploads"
+    run "ln -nfs #{shared_path}/#{stage}/uploads #{current_release}/public/uploads"
   end
 
   desc <<-EOD
