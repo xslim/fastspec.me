@@ -21,6 +21,7 @@ set :rvm_type, :system  # Don't use system-wide RVM
 #set :bundle_dir,          fetch(:shared_path)+"/bundle"
 #set :bundle_dir,          "#{rvm_path}/gems/#{rvm_ruby_string}"
 
+set :shared_children, shared_children + %w{public/uploads}
 
 
 set :repository,  "git@github.com:xslim/fastspec.me.git"
@@ -141,45 +142,3 @@ namespace :rvm do
     run "rvm rvmrc trust #{release_path}"
   end
 end
-
-# ==============================
-# Uploads
-# ==============================
-
-namespace :uploads do
-
-  desc <<-EOD
-    Creates the upload folders unless they exist
-    and sets the proper upload permissions.
-  EOD
-  task :setup, :except => { :no_release => true } do
-    dirs = uploads_dirs.map { |d| File.join(shared_path, d) }
-    run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod g+w #{dirs.join(' ')}"
-  end
-
-  desc <<-EOD
-    [internal] Creates the symlink to uploads shared folder
-    for the most recently deployed version.
-  EOD
-  task :symlink, :roles => :app, :except => { :no_release => true } do
-    run "rm -rf #{current_release}/public/uploads"
-    run "ln -nfs #{shared_path}/#{stage}/uploads #{current_release}/public/uploads"
-  end
-
-  desc <<-EOD
-    [internal] Computes uploads directory paths
-    and registers them in Capistrano environment.
-
-    Note. I can't set value for directories directly in the code because
-    I don't know in advance selected stage.
-  EOD
-  task :register_dirs do
-    set :uploads_dirs,    %w(uploads uploads/partners).map { |d| "#{stage}/#{d}" }
-    set :shared_children, fetch(:shared_children) + fetch(:uploads_dirs)
-  end
-
-  after       "deploy:finalize_update", "uploads:symlink"
-  on :start,  "uploads:register_dirs",  :except => stages + ['multistage:prepare']
-
-end
-
