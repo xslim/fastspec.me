@@ -35,10 +35,22 @@
   %a.print-preview
     %i.icon-print
     Print »
+/
+  #share-container
+    %span.shared
+      %strong Shared:
+      %a{href:'#'}
+    = link_to(share_project_path(@project), class: 'share-link', remote: true) do
+      %i.icon-share-alt
+      Share
+    = link_to(unshare_project_path(@project), class: 'unshare-link') do
+      %i.icon-remove
+
 
 - if @project.share_token
   %b Shared:
-  = shared_project_url(@project.share_token)
+  - shared_url = shared_project_url(@project.share_token)
+  = link_to(shared_url, shared_url)
   = link_to(unshare_project_path(@project)) do
     %i.icon-remove
 - else
