@@ -1,7 +1,11 @@
-- content_for :logo do
-  = image_tag @team.image if @team.image?
+-#- content_for :logo do
+-#  = image_tag @team.image if @team.image?
 
-%h1.page-header= @project.name
+.row
+  .span8{style:'height:100%; vertical-align:bottom;'}
+    %h1.page-header= @project.name
+  .span4
+    = image_tag @team.image if @team.image?
 
 %table.table.table-striped
   %thead
