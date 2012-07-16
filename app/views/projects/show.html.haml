@@ -7,16 +7,20 @@
 
 %table.table.table-striped.table-condensed{:id => 'featureListTable'}
   %tr
+    %th{style:'width: 30px'} #
+    %th{style:'width: 25px'}
     %th Feature
     %th Estimate, hours
     %th
 
   -#%tr= render partial: 'project_feature', collection: @project.project_features, as: :f    
-  %tr= render :partial => 'shared/templates/project_feature', :handler => :haml, :collection => @project.project_features
+  %tr= render :partial => 'shared/templates/project_feature', :handler => :haml, :collection => @features
   %tr
-    %td{:colspan => 2}
     %td
-      Total, hours:
+    %td
+    %td
+    %td Total, hours:
+    %td
       %span.label.label-success#estimate_total
         x
           

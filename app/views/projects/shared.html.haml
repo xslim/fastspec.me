@@ -10,7 +10,8 @@
 %table.table.table-striped
   %thead
     %tr
-      %th #
+      %th{style:'width: 30px'} #
+      %th{style:'width: 25px'}
       %th Feature
       %th Estimate, hours
 
@@ -21,11 +22,14 @@
       %tr
         %td= (f.index + 1 rescue '')
         %td
-          = image_tag(f.image.small_thumb) if f.image?
-          = f.name
+          - if f.image?
+            %a.lightbox{:href => "#{f.image.url}", :title => "#{f.name}"}
+              = image_tag(f.image.small_thumb)
+        %td= f.name
         %td= f.estimate
   %tfoot
     %tr
+      %td
       %td
       %td Total, hours:
       %td= total

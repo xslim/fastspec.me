@@ -1,6 +1,12 @@
 %tr{:"data-toggle"=> "collapse", :"data-target"=>"#details_{{id}}", :"data-row-feature-id" => "{{id}}"}
   %td
+    -#= best_in_place "{{f}}", :index, path: "/projects/{{project_id}}/update/feature/{{id}}", nil: '0'
+
+    %span.best_in_place{:id => "best_in_place_project_feature_{{id}}_index", "data-attribute" => "index", "data-nil" => "", "data-object" => "project_feature", "data-type" => "input", "data-url" => "/projects/{{project_id}}/update/feature/{{id}}"}
+      {{index}}
+  %td
     %img{:id => "img{{id}}", :src => "{{image.small_thumb}}"}
+  %td
     -#= best_in_place "{{f}}", :name, path: "/projects/{{project_id}}/update/feature/{{id}}", nil: 'Something'
     
     %span.best_in_place{:id => "best_in_place_project_feature_{{id}}_name", "data-attribute" => "name", "data-nil" => "Enter feature name here", "data-object" => "project_feature", "data-type" => "input", "data-url" => "/projects/{{project_id}}/update/feature/{{id}}"}
@@ -20,6 +26,8 @@
       Remove  
 
 %tr{:"data-row-feature-id" => "{{id}}"}
+  %td
+  %td
   %td{:colspan => 3, :style => 'height: 0px; padding:0; margin: 0px; border-top: 0;'}
     %div.collapse.row-fluid{:id => "details_{{id}}"}         
       .row-fluid{:style => 'margin: 5px;'}

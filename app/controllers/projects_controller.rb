@@ -19,6 +19,7 @@
   def show
     #puts "--> #{Project.in_team.inspect}"
     @project = Project.in_team(current_team).find(params[:id])
+    @features = @project.project_features.asc(:index)
     
     out_project = @project
     out_project.project_features.asc(:index).each_with_index { |pf, index|
