@@ -17,5 +17,19 @@
             = user.name
           %td= user.email
 
+    - if @invites.count > 0
+      %h2 Invites sent
+
+      %table.table.table-striped
+        %tr
+          %th Email
+          %th 
+        - @invites.each do |invite|
+          %tr
+            %td
+              = gravatar_image_tag(invite.email, gravatar: {size: 20})
+              = invite.email
+            %td= icon_link_to 'repeat', 'Re-send invintation', resend_invite_path(invite.token)
+
   .span6
 

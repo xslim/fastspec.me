@@ -32,7 +32,6 @@ class Feature
   end
 
   def tag_list
-
   end
 
 end

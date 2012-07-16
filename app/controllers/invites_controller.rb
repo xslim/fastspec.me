@@ -36,30 +36,18 @@ class InvitesController < ApplicationController
 
     if @invite.save
 
-      # Make bool
-      #emailed = UserMailer.invite_to_team(email, current_team, @invite).deliver
-      emailed = (UserMailer.invite_to_team(email, current_team, @invite).deliver rescue false)
-      if emailed
-        @invite.mailed = emailed
-        @invite.save
+      if send_invite(@invite.token)
+        redirect_to root_path, notice: 'Invite was successfully created.' and return
+      else
+        redirect_to root_path, alert: 'Invite problem!' and return
       end
-
-      redirect_to root_path, notice: 'Invite was successfully created.' and return
     end
-    redirect_to new_invite_path
+    redirect_to new_invite_path and return
   end
 
-  def resend_invites
-    # invites = Invite.not_mailed
-    # invites.each |e| do
-    #   team = 
-    #   emailed = (UserMailer.invite_to_team(email, current_team, e).deliver rescue false)
-    #   if emailed
-    #     e.emailed = emailed
-    #     e.save
-    #   end
-    # end
-
+  def reinvite
+    send_invite(params[:token])
+    redirect_to root_path, notice: 'Invite re-sended.' and return
   end
 
   def join
@@ -85,6 +73,26 @@ class InvitesController < ApplicationController
 
     invite.update_attributes(active: false)
     redirect_to root_path, notice: 'Successfully joined new team!' and return
+  end
+
+  def send_invite(token)
+
+    invite = Invite.find_by_token(params[:token])
+    invited_for = (Kernel.const_get(invite.invited_for_type).find(invite.invited_for) rescue nil)
+    if !invited_for
+      return false
+      #redirect_to root_path, alert: 'Invite problem!' and return
+    end
+
+    # Make bool
+    #emailed = UserMailer.invite_to_team(email, current_team, @invite).deliver
+    emailed = (UserMailer.invite_to_team(invite.email, invited_for, invite).deliver rescue false)
+    if emailed
+      invite.mailed = emailed
+      invite.save
+    end
+
+    return true
   end
 
 end

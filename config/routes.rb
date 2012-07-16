@@ -34,6 +34,7 @@ Fastspec::Application.routes.draw do
   
   resources :invites
   match 'invite' => 'invites#new', as: 'new_invite'
+  match 'reinvite/:token' => 'invites#reinvite', as: 'resend_invite'
   match 'join/:token' => 'invites#join', as: 'join_invite'
 
   match 'changelog' => 'changelog#index'

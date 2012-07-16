@@ -16,15 +16,15 @@ class Invite
   #field :accepted, :type => Boolean
 
   def self.find_by_email(email)
-    self.first(conditions: { email: email} )
+    self.find_by(email: email)
   end
 
   def self.find_by_token(token)
-    self.first(conditions: { token: token} )
+    self.find_by(token: token)
   end
 
   def self.exists_for(for_id, for_type, email)
-    self.first(conditions: { invited_for: for_id, invited_for_type: for_type, email: email} )
+    self.find_by(invited_for: for_id, invited_for_type: for_type, email: email)
   end
 
   def ensure_token

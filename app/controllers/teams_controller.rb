@@ -38,6 +38,11 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @team = Team.find(params[:id])
+
+    invited_for_type = current_team.class.to_s
+    invited_for = current_team.id.to_s
+    @invites = Invite.where(invited_for_type: invited_for_type, invited_for: invited_for, active: true)
+    
   end
 
   # POST /teams

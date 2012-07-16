@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
     
     out_project = @project
     out_project.project_features.each_with_index { |pf, index|
-      out_project.project_features[index].project_id = @project.id.to_s
+      out_project.project_features[index][:project_id] = @project.id.to_s
     }
     
     respond_to do |format|
@@ -177,7 +177,7 @@ class ProjectsController < ApplicationController
     if feature
       feature.attributes = params[:project_feature]
       if @project.save
-        respond_with_bip @project.project_features.find(params[:feature_id])
+        respond_with_bip feature
       else 
         logger.error "Cannot save project"  
       end    
